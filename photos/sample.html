@@ -1,0 +1,88 @@
+  
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-feather"></i>
+                <h2>Lewason Poultry</h2>
+            </div>
+            
+            <button class="tablinks active" data-tab="dashboard">
+                <i class="fas fa-house"></i> Dashboard
+            </button>
+            
+            <button class="tablinks" data-tab="employees">
+                <i class="fas fa-user-plus"></i> Employees Registration
+            </button>
+            
+            <button class="tablinks" data-tab="products">
+                <i class="fas fa-cart-flatbed-suitcase"></i> Products Registration
+            </button>
+            
+            <button class="tablinks" data-tab="health-records">
+                <i class="fas fa-notes-medical"></i> Health Records
+            </button>
+
+            <button class="tablinks" data-tab="supplier-records">
+                <i class="fas fa-truck"></i> Supplier Management
+            </button>
+
+            <button class="tablinks" data-tab="payments">
+                <i class="fas fa-credit-card"></i> Payments Management
+            </button>
+            
+            <button class="tablinks" data-tab="paybills">
+                <i class="fas fa-money-bill-transfer"></i> Customer Orders
+            </button>
+
+            <button class="tablinks" data-tab="sales">
+            <i class="fas fa-cash-register"></i> Sales Management
+             </button>
+
+
+            <button class="tablinks" data-tab="totalbirds">
+                <i class="fas fa-dove"></i> Total Birds 
+            </button>
+
+           <button class="tablinks" data-tab="feeds_record">
+               <i class="fas fa-wheat-awn"></i> Record Feeds
+           </button>
+
+
+            <form action="logout.php" method="post">
+                <button type="submit" class="tablinks">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </form>
+        </div>
+
+
+         .sidebar {
+            width: var(--sidebar-width);
+            background: linear-gradient(180deg, var(--primary) 0%, #1a2a6c 100%);
+            color: white;
+            padding: 20px 0;
+            height: 100vh;
+            position: fixed;
+            overflow-y: auto;
+            z-index: 1000;
+            box-shadow: 3px 0 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .sidebar-header {
+            padding: 0 20px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .sidebar-header i {
+            font-size: 28px;
+            color: var(--warning);
+        }
+        
+        .sidebar-header h2 {
+            font-weight: 600;
+            font-size: 1.5rem;
+        }

@@ -1,0 +1,2639 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="format-detection" content="telephone=no">
+    <title>SLA System - Subordinate Staff Portal</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+     <link rel="stylesheet" href="surbodinates.css">
+</head>
+<body>
+    <div class="container-fluid">
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <img src="photos/SLA.png" alt="School Logo">
+                <h2>Staff Portal</h2>
+                <div class="mb-2">
+                    <select class="form-select form-select-sm" id="role-selector" onchange="updateRoleDashboard()">
+                        <option value="driver">Driver</option>
+                        <option value="cook">Cook</option>
+                        <option value="cleaner">Cleaner</option>
+                        <option value="matron">Matron</option>
+                        <option value="security">Security</option>
+                        <option value="mechanic">Mechanic</option>
+                        <option value="gardener">Gardener</option>
+                    </select>
+                </div>
+                <p id="staff-role" class="text-muted">Role: <span id="current-role">Driver</span></p>
+                <p id="staff-name" class="text-muted">Staff: <span id="current-staff">Edward Mugao</span></p>
+            </div>
+
+            <!-- Common tabs for all staff -->
+            <button class="tablinks active" onclick="openTab(event, 'dashboard')">
+                <i class="fas fa-tachometer-alt"></i> Dashboard
+            </button>
+
+            <button class="tablinks" onclick="openTab(event, 'tasks')">
+                <i class="fas fa-tasks"></i> My Tasks
+            </button>
+
+            <button class="tablinks" onclick="openTab(event, 'schedule')">
+                <i class="fas fa-calendar-alt"></i> My Schedule
+            </button>
+
+            <button class="tablinks" onclick="openTab(event, 'requests')">
+                <i class="fas fa-envelope"></i> My Requests
+            </button>
+
+            <!-- Role-specific tabs will be shown/hidden based on role -->
+            <button class="tablinks driver-tab" onclick="openTab(event, 'driver-duties')" style="display: none;">
+                <i class="fas fa-bus"></i> Driving Duties
+            </button>
+
+            <button class="tablinks cook-tab" onclick="openTab(event, 'kitchen')" style="display: none;">
+                <i class="fas fa-utensils"></i> Kitchen Management
+            </button>
+
+            <button class="tablinks cleaner-tab" onclick="openTab(event, 'cleaning')" style="display: none;">
+                <i class="fas fa-broom"></i> Cleaning Duties
+            </button>
+
+            <button class="tablinks matron-tab" onclick="openTab(event, 'dormitory')" style="display: none;">
+                <i class="fas fa-bed"></i> Dormitory Management
+            </button>
+
+            <button class="tablinks security-tab" onclick="openTab(event, 'security')" style="display: none;">
+                <i class="fas fa-shield-alt"></i> Security Duties
+            </button>
+
+            <button class="tablinks mechanic-tab" onclick="openTab(event, 'maintenance')" style="display: none;">
+                <i class="fas fa-tools"></i> Maintenance
+            </button>
+
+            <button class="tablinks gardener-tab" onclick="openTab(event, 'grounds')" style="display: none;">
+                <i class="fas fa-leaf"></i> Grounds Keeping
+            </button>
+
+            <button class="tablinks" onclick="openTab(event, 'profile')">
+                <i class="fas fa-user"></i> My Profile
+            </button>
+
+            <form action="logout.php" method="post">
+                <button type="submit" class="tablinks">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </form>
+        </div>
+        
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <header class="content-header">
+                <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+                <h1 id="page-title">Dashboard</h1>
+                <div class="text-center mt-3">
+    <a href="index.html" class="btn btn-info btn-sm">
+        <i class="fas fa-arrow-left"></i> Back to Admin Dashboard
+    </a>
+</div>
+                <div class="header-actions">
+                    <div class="notifications">
+                        <button class="btn-notify" id="notifications-btn">
+                            <i class="fas fa-bell"></i> <span class="badge">8</span>
+                        </button>
+                        <div class="dropdown">
+    <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="advancedSettingsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-cog"></i> Advanced Settings
+    </button>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="advancedSettingsDropdown">
+        <li class="dropdown-header">
+            <i class="fas fa-user-circle"></i> John Doe
+            <small class="text-muted d-block">Administrator</small>
+        </li>
+        <li><hr class="dropdown-divider"></li>
+        <li><a class="dropdown-item" href="https://edwardmugaoportfolio.netlify.app/"><i class="fas fa-user"></i> Profile</a></li>
+        <li><a class="dropdown-item" href="#"><i class="fas fa-sliders-h"></i> System Settings</a></li>
+        <li><a class="dropdown-item text-danger" href="backed.html"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+    </ul>
+</div>
+
+                    </div>
+                </div>
+            </header>
+            
+            <!-- Dynamic Content will be loaded here -->
+            <div class="content-body" id="content-body">
+                <!-- Dashboard Content -->
+                <div id="dashboard" class="tabcontent" style="display: block;">
+                    <div class="row" id="dashboard-cards">
+                        <!-- Cards will be loaded dynamically based on role -->
+                    </div>
+                    
+                    <div class="row mt-4">
+                        <div class="col-md-8">
+                            <div class="form-container">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h4><i class="fas fa-tasks"></i> Recent Tasks</h4>
+                                    <button class="btn btn-sm btn-primary">View All</button>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="data-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Task</th>
+                                                <th>Assigned On</th>
+                                                <th>Due Date</th>
+                                                <th>Status</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="recent-tasks">
+                                            <!-- Recent tasks will be loaded dynamically -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-container">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h4><i class="fas fa-calendar-day"></i> Upcoming Schedule</h4>
+                                </div>
+                                <div class="list-group" id="upcoming-schedule">
+                                    <!-- Upcoming schedule will be loaded dynamically -->
+                                </div>
+                            </div>
+                            
+                            <div class="form-container mt-4">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h4><i class="fas fa-bolt"></i> Quick Actions</h4>
+                                </div>
+                                <div class="d-grid gap-2 quick-actions">
+                                    <!-- Quick actions will be loaded dynamically -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tasks Content -->
+                <div id="tasks" class="tabcontent">
+                    <div class="col-12">
+                        <div class="form-container">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h3><i class="fas fa-tasks"></i> My Tasks</h3>
+                                <div>
+                                    <button class="btn btn-sm btn-primary me-2" data-bs-toggle="modal" data-bs-target="#newTaskModal">
+                                        <i class="fas fa-plus"></i> New Task
+                                    </button>
+                                    <button class="btn btn-sm btn-success" id="export-tasks">
+                                        <i class="fas fa-file-export"></i> Export
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="row mb-3">
+                                <div class="col-md-3">
+                                    <select class="form-select" id="task-status-filter">
+                                        <option value="">All Statuses</option>
+                                        <option>Pending</option>
+                                        <option>In Progress</option>
+                                        <option>Completed</option>
+                                        <option>Overdue</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <select class="form-select" id="task-priority-filter">
+                                        <option value="">All Priorities</option>
+                                        <option>High</option>
+                                        <option>Medium</option>
+                                        <option>Low</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="date" class="form-control" id="task-date-filter">
+                                </div>
+                                <div class="col-md-3">
+                                    <button class="btn btn-primary w-100" id="filter-tasks">Filter Tasks</button>
+                                </div>
+                            </div>
+                            
+                            <div class="table-responsive">
+                                <table class="data-table" id="tasks-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Task</th>
+                                            <th>Assigned By</th>
+                                            <th>Assigned On</th>
+                                            <th>Due Date</th>
+                                            <th>Priority</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tasks-body">
+                                        <!-- Tasks will be loaded dynamically -->
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <div class="row mt-3">
+                                <div class="col-md-6">
+                                    <div class="d-flex align-items-center">
+                                        <span class="me-2">Show</span>
+                                        <select class="form-select form-select-sm w-auto" id="tasks-per-page">
+                                            <option>10</option>
+                                            <option>25</option>
+                                            <option>50</option>
+                                            <option>100</option>
+                                        </select>
+                                        <span class="ms-2">entries</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <nav class="float-end">
+                                        <ul class="pagination pagination-sm" id="tasks-pagination">
+                                            <!-- Pagination will be generated dynamically -->
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Schedule Content -->
+                <div id="schedule" class="tabcontent">
+                    <div class="col-12">
+                        <div class="form-container">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h3><i class="fas fa-calendar-alt"></i> My Work Schedule</h3>
+                                <div class="btn-group" role="group">
+                                    <button type="button" class="btn btn-sm btn-outline-secondary" id="prev-week">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary" id="current-week">
+                                        Current Week
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary" id="next-week">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <div class="btn-group w-100" role="group">
+                                    <button type="button" class="btn btn-sm btn-primary active view-toggle" data-view="daily">
+                                        Daily
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-primary view-toggle" data-view="weekly">
+                                        Weekly
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-primary view-toggle" data-view="monthly">
+                                        Monthly
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div id="daily-view" class="schedule-view active">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="daily-schedule">
+                                        <thead>
+                                            <tr>
+                                                <th>Time</th>
+                                                <th>Activity</th>
+                                                <th>Location</th>
+                                                <th>Status</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Daily schedule will be loaded dynamically -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            
+                            <div id="weekly-view" class="schedule-view">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Time/Day</th>
+                                                <th>Monday</th>
+                                                <th>Tuesday</th>
+                                                <th>Wednesday</th>
+                                                <th>Thursday</th>
+                                                <th>Friday</th>
+                                                <th>Saturday</th>
+                                                <th>Sunday</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Weekly schedule will be loaded dynamically -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            
+                            <div id="monthly-view" class="schedule-view">
+                                <div id="monthly-calendar"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Requests Content -->
+                <div id="requests" class="tabcontent">
+                    <div class="col-12">
+                        <div class="form-container">
+                            <ul class="nav nav-tabs" id="requestsTabs" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" id="my-requests-tab" data-bs-toggle="tab" data-bs-target="#my-requests" type="button" role="tab">My Requests</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="new-request-tab" data-bs-toggle="tab" data-bs-target="#new-request" type="button" role="tab">New Request</button>
+                                </li>
+                            </ul>
+                            
+                            <div class="tab-content p-3 border border-top-0 rounded-bottom" id="requestsTabsContent">
+                                <div class="tab-pane fade show active" id="my-requests" role="tabpanel">
+                                    <div class="table-responsive">
+                                        <table class="data-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Request ID</th>
+                                                    <th>Date</th>
+                                                    <th>Type</th>
+                                                    <th>Subject</th>
+                                                    <th>Status</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>REQ-2023-056</td>
+                                                    <td>15/06/2023</td>
+                                                    <td>Vehicle Maintenance</td>
+                                                    <td>Brake system inspection</td>
+                                                    <td><span class="status-badge status-pending">Pending</span></td>
+                                                    <td>
+                                                        <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
+                                                        <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>REQ-2023-042</td>
+                                                    <td>10/06/2023</td>
+                                                    <td>Leave Application</td>
+                                                    <td>Medical leave request</td>
+                                                    <td><span class="status-badge status-completed">Approved</span></td>
+                                                    <td>
+                                                        <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>REQ-2023-035</td>
+                                                    <td>05/06/2023</td>
+                                                    <td>Resource Request</td>
+                                                    <td>New safety equipment</td>
+                                                    <td><span class="status-badge status-completed">Rejected</span></td>
+                                                    <td>
+                                                        <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                
+                                <div class="tab-pane fade" id="new-request" role="tabpanel">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <form>
+                                                <div class="mb-3">
+                                                    <label class="form-label">Request Type</label>
+                                                    <select class="form-select" id="request-type">
+                                                        <option>Select request type</option>
+                                                        <option>Leave Application</option>
+                                                        <option>Vehicle Maintenance</option>
+                                                        <option>Resource Request</option>
+                                                        <option>Schedule Change</option>
+                                                        <option>Other</option>
+                                                    </select>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label">Subject</label>
+                                                    <input type="text" class="form-control" placeholder="Enter request subject">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label">Description</label>
+                                                    <textarea class="form-control" rows="5" placeholder="Describe your request in detail"></textarea>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label">Priority</label>
+                                                    <select class="form-select">
+                                                        <option>Normal</option>
+                                                        <option>High</option>
+                                                        <option>Urgent</option>
+                                                    </select>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label">Attachment (Optional)</label>
+                                                    <input type="file" class="form-control">
+                                                </div>
+                                                <div class="text-end">
+                                                    <button type="submit" class="btn btn-primary">Submit Request</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Driver Duties Content -->
+                <div id="driver-duties" class="tabcontent">
+                    <div class="col-12">
+                        <div class="form-container">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h3><i class="fas fa-bus"></i> Driving Duties</h3>
+                                <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#newTripModal">
+                                    <i class="fas fa-plus"></i> New Trip Report
+                                </button>
+                            </div>
+                            
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <select class="form-select" id="trip-status-filter">
+                                        <option value="">All Statuses</option>
+                                        <option>Scheduled</option>
+                                        <option>In Progress</option>
+                                        <option>Completed</option>
+                                        <option>Cancelled</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="date" class="form-control" id="trip-date-filter">
+                                </div>
+                                <div class="col-md-4">
+                                    <button class="btn btn-primary w-100">Filter Trips</button>
+                                </div>
+                            </div>
+                            
+                            <div class="table-responsive">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Trip ID</th>
+                                            <th>Date</th>
+                                            <th>Destination</th>
+                                            <th>Vehicle</th>
+                                            <th>Passengers</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>TRIP-2023-124</td>
+                                            <td>20/06/2023</td>
+                                            <td>National Museum</td>
+                                            <td>Bus KCD 456Y</td>
+                                            <td>Form 2 East (45 students)</td>
+                                            <td><span class="status-badge status-pending">Scheduled</span></td>
+                                            <td>
+                                                <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
+                                                <button class="btn btn-sm btn-outline-success"><i class="fas fa-check"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>TRIP-2023-118</td>
+                                            <td>15/06/2023</td>
+                                            <td>Sports Competition</td>
+                                            <td>Minibus KBC 789Z</td>
+                                            <td>Basketball Team (12 students)</td>
+                                            <td><span class="status-badge status-completed">Completed</span></td>
+                                            <td>
+                                                <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
+                                                <button class="btn btn-sm btn-outline-secondary"><i class="fas fa-edit"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>TRIP-2023-112</td>
+                                            <td>10/06/2023</td>
+                                            <td>Airport Pickup</td>
+                                            <td>Van KAB 123X</td>
+                                            <td>Visiting Delegation (8 guests)</td>
+                                            <td><span class="status-badge status-completed">Completed</span></td>
+                                            <td>
+                                                <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
+                                                <button class="btn btn-sm btn-outline-secondary"><i class="fas fa-edit"></i></button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <div class="row mt-4">
+                                <div class="col-md-6">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h5>Vehicle Assignment</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="d-flex align-items-center mb-3">
+                                                <i class="fas fa-bus-alt fa-3x me-3 text-primary"></i>
+                                                <div>
+                                                    <h6>Bus KCD 456Y</h6>
+                                                    <p class="mb-0">Capacity: 50 passengers</p>
+                                                    <p class="mb-0">Last service: 05/06/2023</p>
+                                                </div>
+                                            </div>
+                                            <div class="progress mb-3">
+                                                <div class="progress-bar" role="progressbar" style="width: 85%" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">85% Utilization</div>
+                                            </div>
+                                            <button class="btn btn-sm btn-outline-primary w-100">View Vehicle Details</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h5>Monthly Mileage</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="chart-container">
+                                                <canvas id="mileageChart"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Cook - Kitchen Management Content -->
+                <div id="kitchen" class="tabcontent">
+                    <div class="col-12">
+                        <div class="form-container">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h3><i class="fas fa-utensils"></i> Kitchen Management</h3>
+                                <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#newOrderModal">
+                                    <i class="fas fa-plus"></i> New Kitchen Order
+                                </button>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="card mb-4">
+                                        <div class="card-header">
+                                            <h5>Today's Meal Plan</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="list-group">
+                                                <div class="list-group-item">
+                                                    <div class="d-flex w-100 justify-content-between">
+                                                        <h6 class="mb-1">Breakfast</h6>
+                                                        <small>6:30 AM - 7:30 AM</small>
+                                                    </div>
+                                                    <p class="mb-1">Tea, Bread, Eggs, Fruits</p>
+                                                </div>
+                                                <div class="list-group-item">
+                                                    <div class="d-flex w-100 justify-content-between">
+                                                        <h6 class="mb-1">Lunch</h6>
+                                                        <small>12:30 PM - 2:00 PM</small>
+                                                    </div>
+                                                    <p class="mb-1">Rice, Beans, Beef Stew, Vegetables</p>
+                                                </div>
+                                                <div class="list-group-item">
+                                                    <div class="d-flex w-100 justify-content-between">
+                                                        <h6 class="mb-1">Dinner</h6>
+                                                        <small>6:30 PM - 8:00 PM</small>
+                                                    </div>
+                                                    <p class="mb-1">Ugali, Fish, Sukuma Wiki, Fruit Salad</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="card mb-4">
+                                        <div class="card-header">
+                                            <h5>Kitchen Stock Alerts</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="alert alert-warning">
+                                                <i class="fas fa-exclamation-triangle"></i> <strong>Flour</strong> stock low (5kg remaining)
+                                            </div>
+                                            <div class="alert alert-danger">
+                                                <i class="fas fa-exclamation-circle"></i> <strong>Cooking Oil</strong> critically low (2L remaining)
+                                            </div>
+                                            <div class="alert alert-info">
+                                                <i class="fas fa-info-circle"></i> <strong>Rice</strong> needs restocking (10kg remaining)
+                                            </div>
+                                            <button class="btn btn-sm btn-primary w-100">View Full Inventory</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="table-responsive">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Order ID</th>
+                                            <th>Date</th>
+                                            <th>Items</th>
+                                            <th>Quantity</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>ORD-2023-156</td>
+                                            <td>15/06/2023</td>
+                                            <td>Flour, Sugar, Cooking Oil</td>
+                                            <td>50kg, 20kg, 20L</td>
+                                            <td><span class="status-badge status-pending">Pending Approval</span></td>
+                                            <td>
+                                                <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
+                                                <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>ORD-2023-142</td>
+                                            <td>10/06/2023</td>
+                                            <td>Rice, Beans, Vegetables</td>
+                                            <td>100kg, 50kg, 30kg</td>
+                                            <td><span class="status-badge status-completed">Delivered</span></td>
+                                            <td>
+                                                <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>ORD-2023-135</td>
+                                            <td>05/06/2023</td>
+                                            <td>Meat, Fish, Eggs</td>
+                                            <td>30kg, 20kg, 15 trays</td>
+                                            <td><span class="status-badge status-completed">Delivered</span></td>
+                                            <td>
+                                                <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <div class="row mt-4">
+                                <div class="col-md-12">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h5>Weekly Meal Plan</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Day</th>
+                                                            <th>Breakfast</th>
+                                                            <th>Lunch</th>
+                                                            <th>Dinner</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>Monday</td>
+                                                            <td>Tea, Bread, Eggs, Fruits</td>
+                                                            <td>Rice, Beans, Beef Stew, Vegetables</td>
+                                                            <td>Ugali, Fish, Sukuma Wiki, Fruit Salad</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Tuesday</td>
+                                                            <td>Porridge, Mandazi, Boiled Eggs</td>
+                                                            <td>Chapati, Lentils, Chicken, Salad</td>
+                                                            <td>Rice, Green Grams, Beef, Vegetables</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Wednesday</td>
+                                                            <td>Tea, Bread, Peanut Butter, Fruits</td>
+                                                            <td>Ugali, Beans, Fish, Vegetables</td>
+                                                            <td>Pasta, Minced Meat, Tomato Sauce</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Cleaner - Cleaning Duties Content -->
+                <div id="cleaning" class="tabcontent">
+                    <div class="col-12">
+                        <div class="form-container">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h3><i class="fas fa-broom"></i> Cleaning Duties</h3>
+                                <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#newCleaningReportModal">
+                                    <i class="fas fa-plus"></i> New Cleaning Report
+                                </button>
+                            </div>
+                            
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <select class="form-select" id="cleaning-area-filter">
+                                        <option value="">All Areas</option>
+                                        <option>Classrooms</option>
+                                        <option>Dormitories</option>
+                                        <option>Administration Block</option>
+                                        <option>Dining Hall</option>
+                                        <option>Toilets</option>
+                                        <option>Outdoor Areas</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <select class="form-select" id="cleaning-status-filter">
+                                        <option value="">All Statuses</option>
+                                        <option>Scheduled</option>
+                                        <option>Completed</option>
+                                        <option>Missed</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <button class="btn btn-primary w-100">Filter Duties</button>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="card mb-4">
+                                        <div class="card-header">
+                                            <h5>Today's Cleaning Schedule</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="list-group">
+                                                <div class="list-group-item">
+                                                    <div class="d-flex w-100 justify-content-between">
+                                                        <h6 class="mb-1">Classrooms (Block A)</h6>
+                                                        <small>7:00 AM - 9:00 AM</small>
+                                                    </div>
+                                                    <small>Status: <span class="status-badge status-completed">Completed</span></small>
+                                                </div>
+                                                <div class="list-group-item">
+                                                    <div class="d-flex w-100 justify-content-between">
+                                                        <h6 class="mb-1">Dining Hall</h6>
+                                                        <small>10:00 AM - 11:30 AM</small>
+                                                    </div>
+                                                    <small>Status: <span class="status-badge status-pending">Pending</span></small>
+                                                </div>
+                                                <div class="list-group-item">
+                                                    <div class="d-flex w-100 justify-content-between">
+                                                        <h6 class="mb-1">Toilets (West Wing)</h6>
+                                                        <small>2:00 PM - 3:00 PM</small>
+                                                    </div>
+                                                    <small>Status: <span class="status-badge status-pending">Pending</span></small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h5>Weekly Cleaning Rota</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Day</th>
+                                                            <th>Morning (7-9 AM)</th>
+                                                            <th>Midday (10-11:30 AM)</th>
+                                                            <th>Afternoon (2-3 PM)</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>Monday</td>
+                                                            <td>Classrooms (Block A)</td>
+                                                            <td>Dining Hall</td>
+                                                            <td>Toilets (West Wing)</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Tuesday</td>
+                                                            <td>Classrooms (Block B)</td>
+                                                            <td>Administration Offices</td>
+                                                            <td>Toilets (East Wing)</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Wednesday</td>
+                                                            <td>Classrooms (Block C)</td>
+                                                            <td>Library</td>
+                                                            <td>Outdoor Areas</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="table-responsive mt-4">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Report ID</th>
+                                            <th>Date</th>
+                                            <th>Area Cleaned</th>
+                                            <th>Issues Found</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>CLN-2023-156</td>
+                                            <td>15/06/2023</td>
+                                            <td>Classrooms (Block A)</td>
+                                            <td>Broken desk in Room 12</td>
+                                            <td><span class="status-badge status-completed">Reported</span></td>
+                                            <td>
+                                                <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>CLN-2023-142</td>
+                                            <td>14/06/2023</td>
+                                            <td>Dining Hall</td>
+                                            <td>None</td>
+                                            <td><span class="status-badge status-completed">Completed</span></td>
+                                            <td>
+                                                <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>CLN-2023-135</td>
+                                            <td>13/06/2023</td>
+                                            <td>Toilets (West Wing)</td>
+                                            <td>Leaking pipe in Boys toilet</td>
+                                            <td><span class="status-badge status-completed">Repaired</span></td>
+                                            <td>
+                                                <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Matron - Dormitory Management Content -->
+                <div id="dormitory" class="tabcontent">
+                    <div class="col-12">
+                        <div class="form-container">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h3><i class="fas fa-bed"></i> Dormitory Management</h3>
+                                <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#newDormitoryReportModal">
+                                    <i class="fas fa-plus"></i> New Report
+                                </button>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="card mb-4">
+                                        <div class="card-header">
+                                            <h5>Dormitory Status</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="mb-3">
+                                                <h6>Girls Dormitory</h6>
+                                                <div class="progress mb-2">
+                                                    <div class="progress-bar bg-success" role="progressbar" style="width: 95%" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100">95% Occupied</div>
+                                                </div>
+                                                <small>Capacity: 120/126 beds</small>
+                                            </div>
+                                            <div class="mb-3">
+                                                <h6>Boys Dormitory</h6>
+                                                <div class="progress mb-2">
+                                                    <div class="progress-bar bg-success" role="progressbar" style="width: 92%" aria-valuenow="92" aria-valuemin="0" aria-valuemax="100">92% Occupied</div>
+                                                </div>
+                                                <small>Capacity: 110/120 beds</small>
+                                            </div>
+                                            <button class="btn btn-sm btn-outline-primary w-100">View All Dormitories</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card mb-4">
+                                        <div class="card-header">
+                                            <h5>Recent Issues</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="table-responsive">
+                                                <table class="data-table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Issue</th>
+                                                            <th>Dormitory</th>
+                                                            <th>Reported On</th>
+                                                            <th>Status</th>
+                                                            <th>Actions</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>Broken window</td>
+                                                            <td>Girls Dorm (Room 12)</td>
+                                                            <td>15/06/2023</td>
+                                                            <td><span class="status-badge status-pending">Pending Repair</span></td>
+                                                            <td>
+                                                                <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
+                                                                <button class="btn btn-sm btn-outline-success"><i class="fas fa-check"></i></button>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Missing bedsheet</td>
+                                                            <td>Boys Dorm (Room 8)</td>
+                                                            <td>14/06/2023</td>
+                                                            <td><span class="status-badge status-completed">Resolved</span></td>
+                                                            <td>
+                                                                <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Leaking roof</td>
+                                                            <td>Girls Dorm (Room 5)</td>
+                                                            <td>12/06/2023</td>
+                                                            <td><span class="status-badge status-completed">Repaired</span></td>
+                                                            <td>
+                                                                <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>Dormitory Inspection Schedule</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>Day</th>
+                                                    <th>Morning Inspection</th>
+                                                    <th>Evening Inspection</th>
+                                                    <th>Night Patrol</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Monday</td>
+                                                    <td>6:30 AM - 7:30 AM</td>
+                                                    <td>4:00 PM - 5:00 PM</td>
+                                                    <td>9:00 PM - 10:00 PM</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Tuesday</td>
+                                                    <td>6:30 AM - 7:30 AM</td>
+                                                    <td>4:00 PM - 5:00 PM</td>
+                                                    <td>9:00 PM - 10:00 PM</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Wednesday</td>
+                                                    <td>6:30 AM - 7:30 AM</td>
+                                                    <td>4:00 PM - 5:00 PM</td>
+                                                    <td>9:00 PM - 10:00 PM</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Security - Security Duties Content -->
+                <div id="security" class="tabcontent">
+                    <div class="col-12">
+                        <div class="form-container">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h3><i class="fas fa-shield-alt"></i> Security Duties</h3>
+                                <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#newIncidentModal">
+                                    <i class="fas fa-plus"></i> New Incident Report
+                                </button>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="card mb-4">
+                                        <div class="card-header">
+                                            <h5>Today's Patrol Schedule</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="list-group">
+                                                <div class="list-group-item">
+                                                    <div class="d-flex w-100 justify-content-between">
+                                                        <h6 class="mb-1">Morning Patrol</h6>
+                                                        <small>6:00 AM - 10:00 AM</small>
+                                                    </div>
+                                                    <small>Status: <span class="status-badge status-completed">Completed</span></small>
+                                                </div>
+                                                <div class="list-group-item">
+                                                    <div class="d-flex w-100 justify-content-between">
+                                                        <h6 class="mb-1">Afternoon Patrol</h6>
+                                                        <small>12:00 PM - 4:00 PM</small>
+                                                    </div>
+                                                    <small>Status: <span class="status-badge status-pending">In Progress</span></small>
+                                                </div>
+                                                <div class="list-group-item">
+                                                    <div class="d-flex w-100 justify-content-between">
+                                                        <h6 class="mb-1">Night Patrol</h6>
+                                                        <small>8:00 PM - 6:00 AM</small>
+                                                    </div>
+                                                    <small>Status: <span class="status-badge status-pending">Upcoming</span></small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card mb-4">
+                                        <div class="card-header">
+                                            <h5>Security Checkpoints</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-check mb-3">
+                                                        <input class="form-check-input" type="checkbox" id="main-gate" checked>
+                                                        <label class="form-check-label" for="main-gate">Main Gate</label>
+                                                    </div>
+                                                    <div class="form-check mb-3">
+                                                        <input class="form-check-input" type="checkbox" id="admin-block" checked>
+                                                        <label class="form-check-label" for="admin-block">Admin Block</label>
+                                                    </div>
+                                                    <div class="form-check mb-3">
+                                                        <input class="form-check-input" type="checkbox" id="dining-hall">
+                                                        <label class="form-check-label" for="dining-hall">Dining Hall</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-check mb-3">
+                                                        <input class="form-check-input" type="checkbox" id="dormitories">
+                                                        <label class="form-check-label" for="dormitories">Dormitories</label>
+                                                    </div>
+                                                    <div class="form-check mb-3">
+                                                        <input class="form-check-input" type="checkbox" id="parking-lot" checked>
+                                                        <label class="form-check-label" for="parking-lot">Parking Lot</label>
+                                                    </div>
+                                                    <div class="form-check mb-3">
+                                                        <input class="form-check-input" type="checkbox" id="perimeter">
+                                                        <label class="form-check-label" for="perimeter">Perimeter Fence</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <button class="btn btn-sm btn-primary mt-2">Submit Checkpoint Report</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="table-responsive">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Report ID</th>
+                                            <th>Date</th>
+                                            <th>Incident Type</th>
+                                            <th>Location</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>SEC-2023-156</td>
+                                            <td>15/06/2023</td>
+                                            <td>Unauthorized Visitor</td>
+                                            <td>Main Gate</td>
+                                            <td><span class="status-badge status-completed">Resolved</span></td>
+                                            <td>
+                                                <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>SEC-2023-142</td>
+                                            <td>14/06/2023</td>
+                                            <td>Suspicious Activity</td>
+                                            <td>Parking Lot</td>
+                                            <td><span class="status-badge status-completed">Investigated</span></td>
+                                            <td>
+                                                <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>SEC-2023-135</td>
+                                            <td>13/06/2023</td>
+                                            <td>Property Damage</td>
+                                            <td>Perimeter Fence</td>
+                                            <td><span class="status-badge status-pending">Pending Repair</span></td>
+                                            <td>
+                                                <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
+                                                <button class="btn btn-sm btn-outline-success"><i class="fas fa-check"></i></button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Mechanic - Maintenance Content -->
+                <div id="maintenance" class="tabcontent">
+                    <div class="col-12">
+                        <div class="form-container">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h3><i class="fas fa-tools"></i> Maintenance Requests</h3>
+                                <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#newMaintenanceModal">
+                                    <i class="fas fa-plus"></i> New Maintenance Report
+                                </button>
+                            </div>
+                            
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <select class="form-select" id="maintenance-status-filter">
+                                        <option value="">All Statuses</option>
+                                        <option>Pending</option>
+                                        <option>In Progress</option>
+                                        <option>Completed</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <select class="form-select" id="maintenance-priority-filter">
+                                        <option value="">All Priorities</option>
+                                        <option>High</option>
+                                        <option>Medium</option>
+                                        <option>Low</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <button class="btn btn-primary w-100">Filter Requests</button>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="card mb-4">
+                                        <div class="card-header">
+                                            <h5>Maintenance Stats</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="mb-3">
+                                                <h6>Pending Requests</h6>
+                                                <h3 class="text-warning">8</h3>
+                                            </div>
+                                            <div class="mb-3">
+                                                <h6>In Progress</h6>
+                                                <h3 class="text-primary">3</h3>
+                                            </div>
+                                            <div class="mb-3">
+                                                <h6>Completed This Month</h6>
+                                                <h3 class="text-success">15</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h5>Recent Maintenance Requests</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="table-responsive">
+                                                <table class="data-table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Request ID</th>
+                                                            <th>Date</th>
+                                                            <th>Issue</th>
+                                                            <th>Location</th>
+                                                            <th>Priority</th>
+                                                            <th>Status</th>
+                                                            <th>Actions</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>MNT-2023-156</td>
+                                                            <td>15/06/2023</td>
+                                                            <td>Leaking pipe</td>
+                                                            <td>Girls Dormitory</td>
+                                                            <td>High</td>
+                                                            <td><span class="status-badge status-pending">Pending</span></td>
+                                                            <td>
+                                                                <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
+                                                                <button class="btn btn-sm btn-outline-success"><i class="fas fa-check"></i></button>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>MNT-2023-142</td>
+                                                            <td>14/06/2023</td>
+                                                            <td>Broken window</td>
+                                                            <td>Classroom B12</td>
+                                                            <td>Medium</td>
+                                                            <td><span class="status-badge status-pending">Pending</span></td>
+                                                            <td>
+                                                                <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
+                                                                <button class="btn btn-sm btn-outline-success"><i class="fas fa-check"></i></button>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>MNT-2023-135</td>
+                                                            <td>13/06/2023</td>
+                                                            <td>Faulty electrical</td>
+                                                            <td>Science Lab</td>
+                                                            <td>High</td>
+                                                            <td><span class="status-badge status-completed">Completed</span></td>
+                                                            <td>
+                                                                <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Gardener - Grounds Keeping Content -->
+                <div id="grounds" class="tabcontent">
+                    <div class="col-12">
+                        <div class="form-container">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h3><i class="fas fa-leaf"></i> Grounds Keeping</h3>
+                                <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#newGroundsReportModal">
+                                    <i class="fas fa-plus"></i> New Work Report
+                                </button>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="card mb-4">
+                                        <div class="card-header">
+                                            <h5>Weekly Maintenance Schedule</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="list-group">
+                                                <div class="list-group-item">
+                                                    <div class="d-flex w-100 justify-content-between">
+                                                        <h6 class="mb-1">Monday</h6>
+                                                        <small>7:00 AM - 12:00 PM</small>
+                                                    </div>
+                                                    <p class="mb-1">Lawn mowing (Front yard)</p>
+                                                </div>
+                                                <div class="list-group-item">
+                                                    <div class="d-flex w-100 justify-content-between">
+                                                        <h6 class="mb-1">Wednesday</h6>
+                                                        <small>7:00 AM - 12:00 PM</small>
+                                                    </div>
+                                                    <p class="mb-1">Hedge trimming</p>
+                                                </div>
+                                                <div class="list-group-item">
+                                                    <div class="d-flex w-100 justify-content-between">
+                                                        <h6 class="mb-1">Friday</h6>
+                                                        <small>7:00 AM - 12:00 PM</small>
+                                                    </div>
+                                                    <p class="mb-1">Flower bed maintenance</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card mb-4">
+                                        <div class="card-header">
+                                            <h5>Current Tasks</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="table-responsive">
+                                                <table class="data-table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Task</th>
+                                                            <th>Area</th>
+                                                            <th>Due Date</th>
+                                                            <th>Status</th>
+                                                            <th>Actions</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>Lawn mowing</td>
+                                                            <td>Sports field</td>
+                                                            <td>20/06/2023</td>
+                                                            <td><span class="status-badge status-pending">Pending</span></td>
+                                                            <td>
+                                                                <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
+                                                                <button class="btn btn-sm btn-outline-success"><i class="fas fa-check"></i></button>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Tree pruning</td>
+                                                            <td>Main driveway</td>
+                                                            <td>18/06/2023</td>
+                                                            <td><span class="status-badge status-completed">Completed</span></td>
+                                                            <td>
+                                                                <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Flower planting</td>
+                                                            <td>Admin block garden</td>
+                                                            <td>15/06/2023</td>
+                                                            <td><span class="status-badge status-completed">Completed</span></td>
+                                                            <td>
+                                                                <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>Seasonal Projects</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="data-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Project</th>
+                                                    <th>Start Date</th>
+                                                    <th>End Date</th>
+                                                    <th>Progress</th>
+                                                    <th>Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>New flower beds installation</td>
+                                                    <td>01/06/2023</td>
+                                                    <td>30/06/2023</td>
+                                                    <td>
+                                                        <div class="progress">
+                                                            <div class="progress-bar" role="progressbar" style="width: 65%" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100">65%</div>
+                                                        </div>
+                                                    </td>
+                                                    <td><span class="status-badge status-pending">In Progress</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Irrigation system upgrade</td>
+                                                    <td>15/05/2023</td>
+                                                    <td>15/07/2023</td>
+                                                    <td>
+                                                        <div class="progress">
+                                                            <div class="progress-bar" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">30%</div>
+                                                        </div>
+                                                    </td>
+                                                    <td><span class="status-badge status-pending">In Progress</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Tree planting initiative</td>
+                                                    <td>01/04/2023</td>
+                                                    <td>30/04/2023</td>
+                                                    <td>
+                                                        <div class="progress">
+                                                            <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">100%</div>
+                                                        </div>
+                                                    </td>
+                                                    <td><span class="status-badge status-completed">Completed</span></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Profile Content -->
+                <div id="profile" class="tabcontent">
+                    <div class="col-12">
+                        <div class="form-container">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="card">
+                                        <div class="card-body text-center">
+                                            <img src="photos/WhatsApp Image 2025-07-06 at 21.57.05.jpeg" class="rounded-circle mb-3 profile-photo" alt="Profile Photo" width="150" height="150">
+                                            <h5 id="profile-name">Edward Mugao</h5>
+                                            <p class="text-muted" id="profile-role">Driver</p>
+                                            <p class="text-muted" id="profile-id">Staff ID: STAFF-0234</p>
+                                            <input type="file" id="photo-upload" accept="image/*" style="display: none;">
+                                            <button class="btn btn-sm btn-primary" id="change-photo">Change Photo</button>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="card mt-4">
+                                        <div class="card-header">
+                                            <h5>Quick Stats</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="mb-3">
+                                                <h6>Tasks Completed</h6>
+                                                <h3 class="text-primary" id="tasks-completed">24</h3>
+                                            </div>
+                                            <div class="mb-3">
+                                                <h6>Attendance</h6>
+                                                <h3 class="text-success" id="attendance-rate">98%</h3>
+                                            </div>
+                                            <div class="mb-3">
+                                                <h6>Years of Service</h6>
+                                                <h3 class="text-info" id="service-years">3</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <ul class="nav nav-tabs" id="profileTabs" role="tablist">
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link active" id="personal-tab" data-bs-toggle="tab" data-bs-target="#personal" type="button" role="tab">Personal</button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" id="employment-tab" data-bs-toggle="tab" data-bs-target="#employment" type="button" role="tab">Employment</button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" id="documents-tab" data-bs-toggle="tab" data-bs-target="#documents" type="button" role="tab">Documents</button>
+                                        </li>
+                                    </ul>
+                                    
+                                    <div class="tab-content p-3 border border-top-0 rounded-bottom" id="profileTabsContent">
+                                        <div class="tab-pane fade show active" id="personal" role="tabpanel">
+                                            <form>
+                                                <div class="row mb-3">
+                                                    <div class="col-md-6">
+                                                        <label class="form-label">First Name</label>
+                                                        <input type="text" class="form-control" value="Edward">
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label class="form-label">Last Name</label>
+                                                        <input type="text" class="form-control" value="Mugao">
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-3">
+                                                    <div class="col-md-6">
+                                                        <label class="form-label">Date of Birth</label>
+                                                        <input type="date" class="form-control" value="1985-05-15">
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label class="form-label">Gender</label>
+                                                        <select class="form-select">
+                                                            <option>Male</option>
+                                                            <option>Female</option>
+                                                            <option>Other</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-3">
+                                                    <div class="col-md-6">
+                                                        <label class="form-label">ID Number</label>
+                                                        <input type="text" class="form-control" value="12345678">
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label class="form-label">NHIF Number</label>
+                                                        <input type="text" class="form-control" value="NHIF123456">
+                                                    </div>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label">Address</label>
+                                                    <textarea class="form-control" rows="3">123 School Lane, Nairobi</textarea>
+                                                </div>
+                                                <div class="text-end">
+                                                    <button type="submit" class="btn btn-primary">Update Profile</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        
+                                        <div class="tab-pane fade" id="employment" role="tabpanel">
+                                            <form>
+                                                <div class="row mb-3">
+                                                    <div class="col-md-6">
+                                                        <label class="form-label">Staff Role</label>
+                                                        <input type="text" class="form-control" value="Driver" disabled>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label class="form-label">Department</label>
+                                                        <input type="text" class="form-control" value="Transport" disabled>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-3">
+                                                    <div class="col-md-6">
+                                                        <label class="form-label">Employment Date</label>
+                                                        <input type="date" class="form-control" value="2020-01-10" disabled>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label class="form-label">Contract Type</label>
+                                                        <input type="text" class="form-control" value="Permanent" disabled>
+                                                    </div>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label">Supervisor</label>
+                                                    <input type="text" class="form-control" value="Transport Officer" disabled>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label">Qualifications</label>
+                                                    <textarea class="form-control" rows="3" disabled>Valid driving license PSV certified</textarea>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        
+                                        <div class="tab-pane fade" id="documents" role="tabpanel">
+                                            <div class="table-responsive">
+                                                <table class="data-table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Document</th>
+                                                            <th>Type</th>
+                                                            <th>Upload Date</th>
+                                                            <th>Expiry Date</th>
+                                                            <th>Status</th>
+                                                            <th>Actions</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>Driving License</td>
+                                                            <td>License</td>
+                                                            <td>15/01/2023</td>
+                                                            <td>15/01/2026</td>
+                                                            <td><span class="status-badge status-completed">Valid</span></td>
+                                                            <td>
+                                                                <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
+                                                                <button class="btn btn-sm btn-outline-secondary"><i class="fas fa-download"></i></button>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>PSV Certificate</td>
+                                                            <td>Certification</td>
+                                                            <td>10/03/2022</td>
+                                                            <td>10/03/2025</td>
+                                                            <td><span class="status-badge status-completed">Valid</span></td>
+                                                            <td>
+                                                                <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
+                                                                <button class="btn btn-sm btn-outline-secondary"><i class="fas fa-download"></i></button>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>First Aid Training</td>
+                                                            <td>Certificate</td>
+                                                            <td>05/06/2021</td>
+                                                            <td>05/06/2023</td>
+                                                            <td><span class="status-badge status-overdue">Expired</span></td>
+                                                            <td>
+                                                                <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
+                                                                <button class="btn btn-sm btn-outline-warning"><i class="fas fa-sync-alt"></i></button>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="mt-3">
+                                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#uploadDocumentModal">
+                                                    <i class="fas fa-upload"></i> Upload New Document
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <footer class="content-footer">
+                <p>&copy;SLA Staff Portal © 2025 | Dev: Edward Mugao<span class="text-muted">v2.1.0</span></p>
+            </footer>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <!-- New Task Modal -->
+    <div class="modal fade" id="newTaskModal" tabindex="-1" aria-labelledby="newTaskModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="newTaskModalLabel">New Task Report</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label class="form-label">Task Title</label>
+                            <input type="text" class="form-control" placeholder="Enter task title">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Description</label>
+                            <textarea class="form-control" rows="3" placeholder="Describe the task"></textarea>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Due Date</label>
+                                <input type="date" class="form-control">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Priority</label>
+                                <select class="form-select">
+                                    <option>Normal</option>
+                                    <option>High</option>
+                                    <option>Urgent</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Status</label>
+                            <select class="form-select">
+                                <option>Pending</option>
+                                <option>In Progress</option>
+                                <option>Completed</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary">Submit Report</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- New Trip Modal -->
+    <div class="modal fade" id="newTripModal" tabindex="-1" aria-labelledby="newTripModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="newTripModalLabel">New Trip Report</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Trip Date</label>
+                                <input type="date" class="form-control">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Vehicle</label>
+                                <select class="form-select">
+                                    <option>Bus KCD 456Y</option>
+                                    <option>Minibus KBC 789Z</option>
+                                    <option>Van KAB 123X</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Destination</label>
+                            <input type="text" class="form-control" placeholder="Enter destination">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Purpose</label>
+                            <textarea class="form-control" rows="2" placeholder="Enter trip purpose"></textarea>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Departure Time</label>
+                                <input type="time" class="form-control">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Return Time</label>
+                                <input type="time" class="form-control">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Passenger Details</label>
+                            <textarea class="form-control" rows="3" placeholder="List passengers or group"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Mileage</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" placeholder="Start mileage">
+                                <span class="input-group-text">to</span>
+                                <input type="number" class="form-control" placeholder="End mileage">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Notes</label>
+                            <textarea class="form-control" rows="3" placeholder="Any trip notes or incidents"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary">Submit Trip Report</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- New Kitchen Order Modal -->
+    <div class="modal fade" id="newOrderModal" tabindex="-1" aria-labelledby="newOrderModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="newOrderModalLabel">New Kitchen Order</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Order Date</label>
+                                <input type="date" class="form-control">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Required By</label>
+                                <input type="date" class="form-control">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Items Requested</label>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Item</th>
+                                            <th>Quantity</th>
+                                            <th>Unit</th>
+                                            <th>Urgency</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="order-items">
+                                        <tr>
+                                            <td>
+                                                <select class="form-select">
+                                                    <option>Flour</option>
+                                                    <option>Sugar</option>
+                                                    <option>Cooking Oil</option>
+                                                    <option>Rice</option>
+                                                </select>
+                                            </td>
+                                            <td><input type="number" class="form-control" value="10"></td>
+                                            <td>
+                                                <select class="form-select">
+                                                    <option>kg</option>
+                                                    <option>L</option>
+                                                    <option>pieces</option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <select class="form-select">
+                                                    <option>Normal</option>
+                                                    <option>Urgent</option>
+                                                </select>
+                                            </td>
+                                            <td><button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <button type="button" class="btn btn-sm btn-secondary" id="add-order-item"><i class="fas fa-plus"></i> Add Item</button>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Special Instructions</label>
+                            <textarea class="form-control" rows="3" placeholder="Any special instructions"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary">Submit Order</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- New Cleaning Report Modal -->
+    <div class="modal fade" id="newCleaningReportModal" tabindex="-1" aria-labelledby="newCleaningReportModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="newCleaningReportModalLabel">New Cleaning Report</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label class="form-label">Date</label>
+                            <input type="date" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Area Cleaned</label>
+                            <select class="form-select">
+                                <option>Classrooms</option>
+                                <option>Dormitories</option>
+                                <option>Administration Block</option>
+                                <option>Dining Hall</option>
+                                <option>Toilets</option>
+                                <option>Outdoor Areas</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Specific Location</label>
+                            <input type="text" class="form-control" placeholder="e.g. Block A, Room 12">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Time Spent</label>
+                            <input type="text" class="form-control" placeholder="e.g. 2 hours">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Issues Found</label>
+                            <textarea class="form-control" rows="3" placeholder="Describe any issues found during cleaning"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Status</label>
+                            <select class="form-select">
+                                <option>Completed</option>
+                                <option>Partially Completed</option>
+                                <option>Not Completed</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary">Submit Report</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- New Dormitory Report Modal -->
+    <div class="modal fade" id="newDormitoryReportModal" tabindex="-1" aria-labelledby="newDormitoryReportModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="newDormitoryReportModalLabel">New Dormitory Report</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label class="form-label">Date</label>
+                            <input type="date" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Dormitory</label>
+                            <select class="form-select">
+                                <option>Girls Dormitory</option>
+                                <option>Boys Dormitory</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Room Number</label>
+                            <input type="text" class="form-control" placeholder="Enter room number">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Issue Type</label>
+                            <select class="form-select">
+                                <option>Maintenance</option>
+                                <option>Cleanliness</option>
+                                <option>Discipline</option>
+                                <option>Missing Items</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Description</label>
+                            <textarea class="form-control" rows="3" placeholder="Describe the issue in detail"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Urgency</label>
+                            <select class="form-select">
+                                <option>Normal</option>
+                                <option>High</option>
+                                <option>Emergency</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary">Submit Report</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- New Incident Modal -->
+    <div class="modal fade" id="newIncidentModal" tabindex="-1" aria-labelledby="newIncidentModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="newIncidentModalLabel">New Incident Report</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label class="form-label">Date & Time</label>
+                            <input type="datetime-local" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Location</label>
+                            <select class="form-select">
+                                <option>Main Gate</option>
+                                <option>Administration Block</option>
+                                <option>Classrooms</option>
+                                <option>Dormitories</option>
+                                <option>Dining Hall</option>
+                                <option>Sports Field</option>
+                                <option>Parking Lot</option>
+                                <option>Perimeter</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Incident Type</label>
+                            <select class="form-select">
+                                <option>Unauthorized Entry</option>
+                                <option>Suspicious Activity</option>
+                                <option>Theft</option>
+                                <option>Vandalism</option>
+                                <option>Safety Hazard</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Description</label>
+                            <textarea class="form-control" rows="3" placeholder="Describe the incident in detail"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Action Taken</label>
+                            <textarea class="form-control" rows="3" placeholder="Describe actions taken"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Reported To</label>
+                            <input type="text" class="form-control" placeholder="Who was informed?">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary">Submit Report</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- New Maintenance Modal -->
+    <div class="modal fade" id="newMaintenanceModal" tabindex="-1" aria-labelledby="newMaintenanceModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="newMaintenanceModalLabel">New Maintenance Request</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label class="form-label">Date</label>
+                            <input type="date" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Issue Type</label>
+                            <select class="form-select">
+                                <option>Electrical</option>
+                                <option>Plumbing</option>
+                                <option>Carpentry</option>
+                                <option>Painting</option>
+                                <option>HVAC</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Location</label>
+                            <input type="text" class="form-control" placeholder="Where is the issue?">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Description</label>
+                            <textarea class="form-control" rows="3" placeholder="Describe the issue in detail"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Urgency</label>
+                            <select class="form-select">
+                                <option>Normal</option>
+                                <option>High</option>
+                                <option>Emergency</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary">Submit Request</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- New Grounds Report Modal -->
+    <div class="modal fade" id="newGroundsReportModal" tabindex="-1" aria-labelledby="newGroundsReportModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="newGroundsReportModalLabel">New Grounds Work Report</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label class="form-label">Date</label>
+                            <input type="date" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Work Type</label>
+                            <select class="form-select">
+                                <option>Lawn Mowing</option>
+                                <option>Hedge Trimming</option>
+                                <option>Tree Pruning</option>
+                                <option>Flower Bed Maintenance</option>
+                                <option>Irrigation</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Area</label>
+                            <input type="text" class="form-control" placeholder="Where was work done?">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Time Spent</label>
+                            <input type="text" class="form-control" placeholder="How long did it take?">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Description</label>
+                            <textarea class="form-control" rows="3" placeholder="Describe work done"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Issues</label>
+                            <textarea class="form-control" rows="3" placeholder="Any issues encountered?"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary">Submit Report</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Upload Document Modal -->
+    <div class="modal fade" id="uploadDocumentModal" tabindex="-1" aria-labelledby="uploadDocumentModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="uploadDocumentModalLabel">Upload New Document</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label class="form-label">Document Type</label>
+                            <select class="form-select">
+                                <option>License</option>
+                                <option>Certificate</option>
+                                <option>ID Copy</option>
+                                <option>Contract</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Document Name</label>
+                            <input type="text" class="form-control" placeholder="e.g. Driving License">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Expiry Date (if applicable)</label>
+                            <input type="date" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Document File</label>
+                            <input type="file" class="form-control" accept=".pdf,.jpg,.jpeg,.png">
+                            <small class="text-muted">Accepted formats: PDF, JPG, PNG (Max 5MB)</small>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary">Upload Document</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Custom JS -->
+    <script>
+        // Role data
+        const roleData = {
+            'driver': {
+                name: 'Edward Mugao',
+                id: 'STAFF-0234',
+                cards: [
+                    { icon: 'fa-bus', title: 'Assigned Trips', value: '5', change: '2 this week', changeClass: 'text-success' },
+                    { icon: 'fa-car', title: 'Vehicle Checks', value: '3', change: '1 overdue', changeClass: 'text-warning' },
+                    { icon: 'fa-road', title: 'Mileage This Month', value: '1,240 km', change: 'Next service in 260km', changeClass: 'text-info' },
+                    { icon: 'fa-gas-pump', title: 'Fuel Consumption', value: '320 L', change: '5% less than last month', changeClass: 'text-success' }
+                ],
+                tasks: [
+                    { task: 'Transport students to field trip', assignedBy: 'Mr. Kamau', assignedOn: '15/06/2023', dueDate: '20/06/2023', priority: 'High', status: 'Pending', statusClass: 'status-pending' },
+                    { task: 'Vehicle maintenance check', assignedBy: 'Transport Officer', assignedOn: '10/06/2023', dueDate: '15/06/2023', priority: 'Medium', status: 'Completed', statusClass: 'status-completed' },
+                    { task: 'Weekly vehicle inspection', assignedBy: 'Transport Officer', assignedOn: '05/06/2023', dueDate: '12/06/2023', priority: 'Medium', status: 'Overdue', statusClass: 'status-overdue' }
+                ],
+                schedule: {
+                    daily: [
+                        { time: '6:00 - 8:00', activity: 'Morning pickup route', location: 'School to designated areas', status: 'Pending' },
+                        { time: '8:00 - 12:00', activity: 'Vehicle maintenance check', location: 'School garage', status: 'Pending' },
+                        { time: '12:00 - 14:00', activity: 'Lunch break', location: 'Staff cafeteria', status: 'Pending' },
+                        { time: '14:00 - 17:00', activity: 'Standby for trips', location: 'Transport office', status: 'Pending' }
+                    ],
+                    weekly: [
+                        { time: '6:00 - 8:00', monday: 'Morning pickup', tuesday: 'Morning pickup', wednesday: 'Morning pickup', thursday: 'Morning pickup', friday: 'Morning pickup', saturday: 'OFF', sunday: 'OFF' },
+                        { time: '8:00 - 12:00', monday: 'Standby', tuesday: 'Vehicle maintenance', wednesday: 'Standby', thursday: 'Standby', friday: 'Field trip prep', saturday: 'OFF', sunday: 'OFF' },
+                        { time: '12:00 - 14:00', monday: 'Lunch break', tuesday: 'Lunch break', wednesday: 'Lunch break', thursday: 'Lunch break', friday: 'Lunch break', saturday: 'OFF', sunday: 'OFF' },
+                        { time: '14:00 - 17:00', monday: 'Standby', tuesday: 'Standby', wednesday: 'Sports team transport', thursday: 'Standby', friday: 'Field trip', saturday: 'OFF', sunday: 'OFF' }
+                    ]
+                },
+                quickActions: [
+                    { icon: 'fa-plus-circle', text: 'New Trip Report', color: 'primary' },
+                    { icon: 'fa-car', text: 'Vehicle Check-in', color: 'success' },
+                    { icon: 'fa-gas-pump', text: 'Fuel Request', color: 'info' },
+                    { icon: 'fa-wrench', text: 'Maintenance Request', color: 'warning' }
+                ]
+            },
+            'cook': {
+                name: 'Susan Wanjiku',
+                id: 'STAFF-0456',
+                cards: [
+                    { icon: 'fa-utensils', title: 'Meals Today', value: '450', change: '25 more than usual', changeClass: 'text-warning' },
+                    { icon: 'fa-box-open', title: 'Low Stock Items', value: '5', change: '2 critical', changeClass: 'text-danger' },
+                    { icon: 'fa-clipboard-check', title: 'Health Inspections', value: '2/3', change: '1 pending', changeClass: 'text-warning' },
+                    { icon: 'fa-users', title: 'Special Diets', value: '12', change: '3 new this week', changeClass: 'text-info' }
+                ],
+                tasks: [
+                    { task: 'Prepare lunch for 450 students', assignedBy: 'Head Chef', assignedOn: '15/06/2023', dueDate: '15/06/2023', priority: 'High', status: 'Completed', statusClass: 'status-completed' },
+                    { task: 'Inventory check', assignedBy: 'Head Chef', assignedOn: '14/06/2023', dueDate: '16/06/2023', priority: 'Medium', status: 'Pending', statusClass: 'status-pending' },
+                    { task: 'Special meal for allergic student', assignedBy: 'Matron', assignedOn: '13/06/2023', dueDate: '13/06/2023', priority: 'High', status: 'Completed', statusClass: 'status-completed' }
+                ],
+                schedule: {
+                    daily: [
+                        { time: '5:00 - 7:00', activity: 'Breakfast preparation', location: 'Main kitchen', status: 'Completed' },
+                        { time: '7:00 - 9:00', activity: 'Breakfast service', location: 'Dining hall', status: 'Pending' },
+                        { time: '9:00 - 12:00', activity: 'Lunch preparation', location: 'Main kitchen', status: 'Pending' },
+                        { time: '12:00 - 14:00', activity: 'Lunch service', location: 'Dining hall', status: 'Pending' },
+                        { time: '14:00 - 16:00', activity: 'Dinner preparation', location: 'Main kitchen', status: 'Pending' },
+                        { time: '16:00 - 18:00', activity: 'Dinner service', location: 'Dining hall', status: 'Pending' }
+                    ],
+                    weekly: [
+                        { time: '5:00 - 7:00', monday: 'Breakfast prep', tuesday: 'Breakfast prep', wednesday: 'Breakfast prep', thursday: 'Breakfast prep', friday: 'Breakfast prep', saturday: 'OFF', sunday: 'OFF' },
+                        { time: '7:00 - 9:00', monday: 'Breakfast service', tuesday: 'Breakfast service', wednesday: 'Breakfast service', thursday: 'Breakfast service', friday: 'Breakfast service', saturday: 'OFF', sunday: 'OFF' },
+                        { time: '9:00 - 12:00', monday: 'Lunch prep', tuesday: 'Lunch prep', wednesday: 'Lunch prep', thursday: 'Lunch prep', friday: 'Lunch prep', saturday: 'OFF', sunday: 'OFF' },
+                        { time: '12:00 - 14:00', monday: 'Lunch service', tuesday: 'Lunch service', wednesday: 'Lunch service', thursday: 'Lunch service', friday: 'Lunch service', saturday: 'OFF', sunday: 'OFF' }
+                    ]
+                },
+                quickActions: [
+                    { icon: 'fa-utensils', text: 'New Meal Plan', color: 'primary' },
+                    { icon: 'fa-box-open', text: 'Stock Request', color: 'success' },
+                    { icon: 'fa-clipboard-check', text: 'Inspection Report', color: 'info' },
+                    { icon: 'fa-users', text: 'Special Diet Request', color: 'warning' }
+                ]
+            },
+            // Similar data structures for other roles...
+        };
+
+        // Function to update dashboard based on selected role
+        function updateRoleDashboard() {
+            const roleSelector = document.getElementById('role-selector');
+            const selectedRole = roleSelector.value;
+            const roleInfo = roleData[selectedRole];
+            
+            // Update the displayed role and staff info
+            document.getElementById('current-role').textContent = selectedRole.charAt(0).toUpperCase() + selectedRole.slice(1);
+            document.getElementById('current-staff').textContent = roleInfo.name;
+            document.getElementById('profile-name').textContent = roleInfo.name;
+            document.getElementById('profile-role').textContent = selectedRole.charAt(0).toUpperCase() + selectedRole.slice(1);
+            document.getElementById('profile-id').textContent = `Staff ID: ${roleInfo.id}`;
+            
+            // Update dashboard cards
+            const cardsContainer = document.getElementById('dashboard-cards');
+            cardsContainer.innerHTML = '';
+            
+            roleInfo.cards.forEach(card => {
+                const col = document.createElement('div');
+                col.className = 'col-md-3';
+                col.innerHTML = `
+                    <div class="dashboard-card role-${selectedRole}">
+                        <div class="card-icon">
+                            <i class="fas ${card.icon}"></i>
+                        </div>
+                        <div class="card-title">${card.title}</div>
+                        <div class="card-value">${card.value}</div>
+                        <div class="card-change ${card.changeClass}">
+                            <i class="fas ${card.changeClass.includes('success') ? 'fa-arrow-up' : 
+                              card.changeClass.includes('warning') ? 'fa-exclamation-circle' : 
+                              card.changeClass.includes('danger') ? 'fa-exclamation-triangle' : 'fa-info-circle'}"></i> ${card.change}
+                        </div>
+                    </div>
+                `;
+                cardsContainer.appendChild(col);
+            });
+            
+            // Update recent tasks
+            const recentTasksBody = document.getElementById('recent-tasks');
+            recentTasksBody.innerHTML = '';
+            
+            roleInfo.tasks.forEach(task => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${task.task}</td>
+                    <td>${task.assignedOn}</td>
+                    <td>${task.dueDate}</td>
+                    <td><span class="status-badge ${task.statusClass}">${task.status}</span></td>
+                    <td>
+                        <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
+                        ${task.status === 'Pending' ? '<button class="btn btn-sm btn-outline-success"><i class="fas fa-check"></i></button>' : ''}
+                    </td>
+                `;
+                recentTasksBody.appendChild(row);
+            });
+            
+            // Update upcoming schedule
+            const upcomingSchedule = document.getElementById('upcoming-schedule');
+            upcomingSchedule.innerHTML = '';
+            
+            roleInfo.schedule.daily.slice(0, 3).forEach(item => {
+                const scheduleItem = document.createElement('div');
+                scheduleItem.className = 'list-group-item';
+                scheduleItem.innerHTML = `
+                    <div class="d-flex w-100 justify-content-between">
+                        <h6 class="mb-1">${item.activity}</h6>
+                        <small>${item.time}</small>
+                    </div>
+                    <small class="text-muted">${item.location}</small>
+                `;
+                upcomingSchedule.appendChild(scheduleItem);
+            });
+            
+            // Update quick actions
+            const quickActions = document.querySelector('.quick-actions');
+            quickActions.innerHTML = '';
+            
+            roleInfo.quickActions.forEach(action => {
+                const btn = document.createElement('button');
+                btn.className = `btn btn-${action.color}`;
+                btn.innerHTML = `<i class="fas ${action.icon}"></i> ${action.text}`;
+                quickActions.appendChild(btn);
+            });
+            
+            // Update tasks table
+            updateTasksTable(selectedRole);
+            
+            // Update schedule
+            updateSchedule(selectedRole);
+            
+            // Hide all role-specific tabs first
+            document.querySelectorAll('.driver-tab, .cook-tab, .cleaner-tab, .matron-tab, .security-tab, .mechanic-tab, .gardener-tab').forEach(tab => {
+                tab.style.display = 'none';
+            });
+            
+            // Show only the tabs for the selected role
+            document.querySelectorAll(`.${selectedRole}-tab`).forEach(tab => {
+                tab.style.display = 'block';
+            });
+        }
+        
+        // Function to update tasks table
+        function updateTasksTable(role) {
+            const tasksBody = document.getElementById('tasks-body');
+            tasksBody.innerHTML = '';
+            
+            roleData[role].tasks.forEach(task => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${task.task}</td>
+                    <td>${task.assignedBy}</td>
+                    <td>${task.assignedOn}</td>
+                    <td>${task.dueDate}</td>
+                    <td>${task.priority}</td>
+                    <td><span class="status-badge ${task.statusClass}">${task.status}</span></td>
+                    <td>
+                        <button class="btn btn-sm btn-outline-primary view-task"><i class="fas fa-eye"></i></button>
+                        ${task.status === 'Pending' ? 
+                          '<button class="btn btn-sm btn-outline-success complete-task"><i class="fas fa-check"></i></button>' : 
+                          '<button class="btn btn-sm btn-outline-secondary"><i class="fas fa-edit"></i></button>'}
+                        <button class="btn btn-sm btn-outline-danger delete-task"><i class="fas fa-times"></i></button>
+                    </td>
+                `;
+                tasksBody.appendChild(row);
+            });
+            
+            // Add event listeners to task actions
+            document.querySelectorAll('.view-task').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    showNotification('Task details loaded', 'info');
+                });
+            });
+            
+            document.querySelectorAll('.complete-task').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const row = this.closest('tr');
+                    const statusBadge = row.querySelector('.status-badge');
+                    statusBadge.className = 'status-badge status-completed';
+                    statusBadge.textContent = 'Completed';
+                    this.remove();
+                    showNotification('Task marked as completed!', 'success');
+                });
+            });
+            
+            document.querySelectorAll('.delete-task').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    if (confirm('Are you sure you want to delete this task?')) {
+                        this.closest('tr').remove();
+                        showNotification('Task deleted successfully', 'success');
+                    }
+                });
+            });
+        }
+        
+        // Function to update schedule
+        function updateSchedule(role) {
+            // Update daily schedule
+            const dailyTbody = document.querySelector('#daily-schedule tbody');
+            dailyTbody.innerHTML = '';
+            
+            roleData[role].schedule.daily.forEach(item => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${item.time}</td>
+                    <td>${item.activity}</td>
+                    <td>${item.location}</td>
+                    <td><span class="status-badge ${item.status === 'Completed' ? 'status-completed' : 'status-pending'}">${item.status}</span></td>
+                    <td>
+                        <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
+                        ${item.status === 'Pending' ? '<button class="btn btn-sm btn-outline-success complete-shift"><i class="fas fa-check"></i></button>' : ''}
+                    </td>
+                `;
+                dailyTbody.appendChild(row);
+            });
+            
+            // Update weekly schedule
+            const weeklyTbody = document.querySelector('#weekly-view tbody');
+            weeklyTbody.innerHTML = '';
+            
+            roleData[role].schedule.weekly.forEach(item => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${item.time}</td>
+                    <td>${item.monday}</td>
+                    <td>${item.tuesday}</td>
+                    <td>${item.wednesday}</td>
+                    <td>${item.thursday}</td>
+                    <td>${item.friday}</td>
+                    <td>${item.saturday}</td>
+                    <td>${item.sunday}</td>
+                `;
+                weeklyTbody.appendChild(row);
+            });
+            
+            // Add event listeners to schedule actions
+            document.querySelectorAll('.complete-shift').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const row = this.closest('tr');
+                    const statusBadge = row.querySelector('.status-badge');
+                    statusBadge.className = 'status-badge status-completed';
+                    statusBadge.textContent = 'Completed';
+                    this.remove();
+                    showNotification('Shift marked as completed!', 'success');
+                });
+            });
+        }
+        
+        // Notification system
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `alert alert-${type} alert-dismissible fade show`;
+            notification.role = 'alert';
+            notification.innerHTML = `
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            `;
+            
+            const notificationsContainer = document.createElement('div');
+            notificationsContainer.id = 'notifications-container';
+            notificationsContainer.style.position = 'fixed';
+            notificationsContainer.style.top = '20px';
+            notificationsContainer.style.right = '20px';
+            notificationsContainer.style.zIndex = '2000';
+            notificationsContainer.style.width = '300px';
+            
+            if (!document.getElementById('notifications-container')) {
+                document.body.appendChild(notificationsContainer);
+            }
+            
+            document.getElementById('notifications-container').appendChild(notification);
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => {
+                    notification.remove();
+                    if (document.getElementById('notifications-container') && 
+                        document.getElementById('notifications-container').children.length === 0) {
+                        document.getElementById('notifications-container').remove();
+                    }
+                }, 150);
+            }, 5000);
+        }
+        
+        // Tab functionality
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            
+            // Hide all tab content
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            
+            // Remove active class from all tab buttons
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            
+            // Show the current tab and add active class to the button
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+            
+            // Update page title
+            document.getElementById('page-title').textContent = evt.currentTarget.textContent.trim();
+        }
+        
+        // Schedule view toggle
+        document.querySelectorAll('.view-toggle').forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Remove active class from all view buttons
+                document.querySelectorAll('.view-toggle').forEach(b => {
+                    b.classList.remove('active');
+                });
+                
+                // Add active class to clicked button
+                this.classList.add('active');
+                
+                // Hide all schedule views
+                document.querySelectorAll('.schedule-view').forEach(view => {
+                    view.style.display = 'none';
+                });
+                
+                // Show selected view
+                const viewToShow = this.getAttribute('data-view');
+                document.getElementById(`${viewToShow}-view`).style.display = 'block';
+            });
+        });
+        
+        // Change profile photo
+        document.getElementById('change-photo').addEventListener('click', function() {
+            document.getElementById('photo-upload').click();
+        });
+        
+        document.getElementById('photo-upload').addEventListener('change', function(e) {
+            if (e.target.files && e.target.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    document.querySelector('.profile-photo').src = event.target.result;
+                    showNotification('Profile photo updated successfully', 'success');
+                }
+                reader.readAsDataURL(e.target.files[0]);
+            }
+        });
+        
+        // Initialize the page with driver role selected
+        window.onload = function() {
+            updateRoleDashboard();
+            document.querySelector('.tablinks').click();
+            
+            // Initialize mileage chart
+            const mileageCtx = document.getElementById('mileageChart').getContext('2d');
+            const mileageChart = new Chart(mileageCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+                    datasets: [{
+                        label: 'Mileage (km)',
+                        data: [320, 450, 280, 390],
+                        backgroundColor: 'rgba(52, 152, 219, 0.7)',
+                        borderColor: 'rgba(52, 152, 219, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+            
+            // Add order item row
+            document.getElementById('add-order-item').addEventListener('click', function() {
+                const tbody = document.getElementById('order-items');
+                const newRow = document.createElement('tr');
+                newRow.innerHTML = `
+                    <td>
+                        <select class="form-select">
+                            <option>Flour</option>
+                            <option>Sugar</option>
+                            <option>Cooking Oil</option>
+                            <option>Rice</option>
+                        </select>
+                    </td>
+                    <td><input type="number" class="form-control" value="1"></td>
+                    <td>
+                        <select class="form-select">
+                            <option>kg</option>
+                            <option>L</option>
+                            <option>pieces</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select class="form-select">
+                            <option>Normal</option>
+                            <option>Urgent</option>
+                        </select>
+                    </td>
+                    <td><button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button></td>
+                `;
+                tbody.appendChild(newRow);
+                
+                // Add event listener to new delete button
+                newRow.querySelector('button').addEventListener('click', function() {
+                    tbody.removeChild(newRow);
+                });
+            });
+            
+            // Add event listeners to existing delete buttons
+            document.querySelectorAll('#order-items button').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const row = this.closest('tr');
+                    document.getElementById('order-items').removeChild(row);
+                });
+            });
+            
+            // Toggle sidebar on mobile
+            document.getElementById('menuToggle').addEventListener('click', function() {
+                document.getElementById('sidebar').classList.toggle('active');
+            });
+        };
+    </script>
+</body>
+</html>

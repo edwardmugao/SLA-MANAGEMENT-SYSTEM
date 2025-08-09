@@ -1,0 +1,2299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="format-detection" content="telephone=no">
+    <title>SLA System - Admin Portal</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+     <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="container-fluid">
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <img src="photos/SLA.png" alt="School Logo">
+                <h2>Admin Portal</h2>
+                <p class="text-muted">Super Administrator</p>
+            </div>
+
+            <button class="tablinks active" onclick="openTab(event, 'dashboard')">
+                <i class="fas fa-tachometer-alt"></i> Dashboard
+            </button>
+            
+            <button class="tablinks" onclick="openTab(event, 'staff-management')">
+                <i class="fas fa-users-cog"></i> Staff Management
+            </button>
+            
+            <button class="tablinks teacher-link" onclick="openTab(event, 'teachers')">
+                <i class="fas fa-chalkboard-teacher"></i> Teachers
+            </button>
+            
+            <button class="tablinks staff-link" onclick="openTab(event, 'subordinate-staff')">
+                <i class="fas fa-user-shield"></i> Subordinate Staff
+            </button>
+            
+            <button class="tablinks secretary-link" onclick="openTab(event, 'secretary')">
+                <i class="fas fa-user-tie"></i> Secretary
+            </button>
+            
+            <button class="tablinks finance-link" onclick="openTab(event, 'finance')">
+                <i class="fas fa-money-bill-wave"></i> Finance
+            </button>
+            
+            <button class="tablinks" onclick="openTab(event, 'students')">
+                <i class="fas fa-users"></i> Students
+            </button>
+            
+            <button class="tablinks" onclick="openTab(event, 'academics')">
+                <i class="fas fa-book"></i> Academics
+            </button>
+            
+            <button class="tablinks" onclick="openTab(event, 'reports')">
+                <i class="fas fa-chart-bar"></i> Reports
+            </button>
+            
+            <button class="tablinks" onclick="openTab(event, 'communication')">
+                <i class="fas fa-comments"></i> Communication
+            </button>
+            
+           
+        </div>
+        
+        <!-- Main Content Area -->
+        <div class="main-content">
+           <header class="content-header d-flex justify-content-between align-items-center p-2 bg-light border-bottom">
+    <!-- Menu toggle -->
+    <div class="d-flex align-items-center">
+        <button class="btn btn-outline-secondary me-3" id="menuToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+        <b><strong><h1 id="page-title" class="h5 mb-0">Admin Dashboard</h1></strong></b>
+    </div>
+
+    <!-- Header actions -->
+    <div class="header-actions d-flex align-items-center gap-2">
+        <!-- Navigation buttons -->
+        <b><mark><p>( Click here for more....</p></mark></b>
+        <a href="secretary.html" class="btn btn-sm btn-info">
+            <i class="fas fa-user-tie"></i> Secretary
+        </a>
+        <a href="finance.html" class="btn btn-sm btn-success">
+            <i class="fas fa-dollar-sign"></i> Finance
+        </a>
+        <a href="surbodinates.html" class="btn btn-sm btn-warning text-dark">
+            <i class="fas fa-book"></i> Subordinate Staff
+        </a>
+        <a href="teachers.html" class="btn btn-sm btn-primary">
+            <i class="fas fa-chart-line"></i> Teachers
+        </a>
+ 
+
+ <div class="dropdown">
+    <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="advancedSettingsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-cog"></i> Advanced Settings
+    </button>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="advancedSettingsDropdown">
+        <li class="dropdown-header">
+            <i class="fas fa-user-circle"></i> Edward Mugao
+            <small class="text-muted d-block">Administrator</small>
+        </li>
+        <li><hr class="dropdown-divider"></li>
+        <li><a class="dropdown-item" href="https://edwardmugaoportfolio.netlify.app/"><i class="fas fa-user"></i> Profile</a></li>
+        <li><a class="dropdown-item" href="#"><i class="fas fa-sliders-h"></i> System Settings</a></li>
+        <li><a class="dropdown-item text-danger" href="backed.html"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+    </ul>
+</div>
+
+ 
+    </div>
+</header>
+
+            
+            <!-- Dynamic Content will be loaded here -->
+            <div class="content-body" id="content-body">
+                <!-- Dashboard Content -->
+                <div id="dashboard" class="tabcontent" style="display: block;">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="dashboard-card">
+                                <div class="card-icon teacher">
+                                    <i class="fas fa-chalkboard-teacher"></i>
+                                </div>
+                                <div class="card-title">Teaching Staff</div>
+                                <div class="card-value">48</div>
+                                <div class="card-change text-success">
+                                    <i class="fas fa-arrow-up"></i> 2 new hires
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="dashboard-card">
+                                <div class="card-icon staff">
+                                    <i class="fas fa-user-shield"></i>
+                                </div>
+                                <div class="card-title">Subordinate Staff</div>
+                                <div class="card-value">22</div>
+                                <div class="card-change text-warning">
+                                    <i class="fas fa-user-clock"></i> 1 on leave
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="dashboard-card">
+                                <div class="card-icon">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <div class="card-title">Total Students</div>
+                                <div class="card-value">1,245</div>
+                                <div class="card-change text-info">
+                                    <i class="fas fa-info-circle"></i> 5.2% increase
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="dashboard-card">
+                                <div class="card-icon admin">
+                                    <i class="fas fa-school"></i>
+                                </div>
+                                <div class="card-title">Total Population</div>
+                                <div class="card-value">1,315</div>
+                                <div class="card-change text-primary">
+                                    <i class="fas fa-chart-line"></i> 6.1% growth
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row mt-4">
+                        <div class="col-md-8">
+                            <div class="form-container">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h4><i class="fas fa-tasks"></i> Recent Activities & Tasks</h4>
+                                    <button class="btn btn-sm btn-primary">View All</button>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="data-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Date</th>
+                                                <th>Task/Activity</th>
+                                                <th>Assigned To</th>
+                                                <th>Department</th>
+                                                <th>Status</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>18/08/2025</td>
+                                                <td>Prepare Term 3 Timetable</td>
+                                                <td>Mr. John (Academic)</td>
+                                                <td>Teachers</td>
+                                                <td><span class="task-status task-in-progress">In Progress</span></td>
+                                                <td>
+                                                    <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
+                                                    <button class="btn btn-sm btn-outline-secondary"><i class="fas fa-edit"></i></button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>17/08/2025</td>
+                                                <td>Fee Collection Report</td>
+                                                <td>Mrs. Wanjiru (Finance)</td>
+                                                <td>Finance</td>
+                                                <td><span class="task-status task-completed">Completed</span></td>
+                                                <td>
+                                                    <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
+                                                    <button class="btn btn-sm btn-outline-secondary"><i class="fas fa-edit"></i></button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>16/08/2025</td>
+                                                <td>School Maintenance</td>
+                                                <td>Mr. Kamau (Grounds)</td>
+                                                <td>Subordinate</td>
+                                                <td><span class="task-status task-pending">Pending</span></td>
+                                                <td>
+                                                    <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
+                                                    <button class="btn btn-sm btn-outline-secondary"><i class="fas fa-edit"></i></button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>15/08/2025</td>
+                                                <td>Parent Meeting Minutes</td>
+                                                <td>Ms. Atieno (Secretary)</td>
+                                                <td>Secretary</td>
+                                                <td><span class="task-status task-overdue">Overdue</span></td>
+                                                <td>
+                                                    <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
+                                                    <button class="btn btn-sm btn-outline-secondary"><i class="fas fa-edit"></i></button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            
+                            <div class="form-container mt-4">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h4><i class="fas fa-chart-line"></i> School Performance Overview</h4>
+                                    <div>
+                                        <select class="form-select form-select-sm" style="width: 150px; display: inline-block;">
+                                            <option>Term 1 2025</option>
+                                            <option>Term 2 2025</option>
+                                            <option>Term 3 2025</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="chart-container">
+                                    <canvas id="performanceChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-container">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h4><i class="fas fa-calendar-day"></i> Upcoming Events</h4>
+                                     <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#addEventModal">
+    Add Event
+  </button>
+
+  
+  <!-- Add Event Modal -->
+  <div class="modal fade" id="addEventModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <form action="save_event.php" method="POST">
+          <div class="modal-header">
+            <h5 class="modal-title">Add New Event</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label>Event Name</label>
+                <input type="text" name="event_name" class="form-control" required>
+              </div>
+              <div class="col-md-6">
+                <label>Event Date</label>
+                <input type="date" name="event_date" class="form-control" required>
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label>Venue</label>
+                <input type="text" name="venue" class="form-control" required>
+              </div>
+              <div class="col-md-6">
+                <label>Location / County</label>
+                <input type="text" name="location_county" class="form-control" required>
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label>Estimated Expenses (KES)</label>
+                <input type="number" step="0.01" name="expenses" class="form-control">
+              </div>
+              <div class="col-md-6">
+                <label>Requirements</label>
+                <textarea name="requirements" class="form-control" rows="2" placeholder="e.g., Chairs, PA system, Catering"></textarea>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label>Event Organising Protocols</label>
+              <textarea name="protocols" class="form-control" rows="3" placeholder="e.g., Security arrangements, Health protocols, Permits"></textarea>
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-success">Save Event</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+                              </div>
+                                <div class="list-group">
+                                    <div class="list-group-item">
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h6 class="mb-1">Staff Meeting</h6>
+                                            <small>Tomorrow</small>
+                                        </div>
+                                        <small class="text-muted">20/08/2025, 10:00 AM - Staff Room</small>
+                                    </div>
+                                    <div class="list-group-item">
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h6 class="mb-1">Term 3 Opening</h6>
+                                            <small>3 days</small>
+                                        </div>
+                                        <small class="text-muted">22/08/2025, All Staff</small>
+                                    </div>
+                                    <div class="list-group-item">
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h6 class="mb-1">Board Meeting</h6>
+                                            <small>1 week</small>
+                                        </div>
+                                        <small class="text-muted">25/08/2025, Board Room</small>
+                                    </div>
+                                    <div class="list-group-item">
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h6 class="mb-1">Sports Day</h6>
+                                            <small>2 weeks</small>
+                                        </div>
+                                        <small class="text-muted">01/09/2025, School Field</small>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-container mt-4">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h4><i class="fas fa-exclamation-circle"></i> Pending Approvals</h4>
+                                    <span class="badge bg-danger">4</span>
+                                </div>
+                                <div class="list-group">
+                                    <div class="list-group-item">
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h6 class="mb-1">Leave Application</h6>
+                                            <small>Mr. Otieno</small>
+                                        </div>
+                                        <small class="text-muted">2 days sick leave</small>
+                                    </div>
+                                    <div class="list-group-item">
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h6 class="mb-1">Purchase Request</h6>
+                                            <small>Lab Equipment</small>
+                                        </div>
+                                        <small class="text-muted">KES 45,200</small>
+                                    </div>
+                                    <div class="list-group-item">
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h6 class="mb-1">New Student Admission</h6>
+                                            <small>Form 1 East</small>
+                                        </div>
+                                        <small class="text-muted">Brian Kimathi</small>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-container mt-4">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h4><i class="fas fa-bolt"></i> Quick Actions</h4>
+                                </div>
+                                <div class="d-grid gap-2">
+                                    <button class="btn btn-primary"><i class="fas fa-user-plus"></i>View Students Performance</button>
+                                    <button class="btn btn-success"><i class="fas fa-file-invoice-dollar"></i> Generate Payroll</button>
+                                    <button class="btn btn-info"><i class="fas fa-calendar-alt"></i> Create Event</button>
+                                    <button class="btn btn-warning"><i class="fas fa-file-export"></i> Export Reports</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Staff Management Content -->
+                <div id="staff-management" class="tabcontent">
+                    <div class="col-12">
+                        <div class="form-container">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h3><i class="fas fa-users-cog"></i> Staff Management</h3>
+                                <div>
+                                    <button class="btn btn-sm btn-primary me-2" data-bs-toggle="modal" data-bs-target="#addStaffModal">
+                                        <i class="fas fa-plus"></i> Add Staff
+                                    </button>
+                                    <button class="btn btn-sm btn-success">
+                                        <i class="fas fa-file-import"></i> Import
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <ul class="nav nav-tabs mb-3" id="staffTabs" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" id="all-staff-tab" data-bs-toggle="tab" data-bs-target="#all-staff" type="button" role="tab">All Staff</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link teacher-tab" id="teachers-tab" data-bs-toggle="tab" data-bs-target="#teachers-tab-content" type="button" role="tab">Teachers</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link staff-tab" id="subordinate-tab" data-bs-toggle="tab" data-bs-target="#subordinate-tab-content" type="button" role="tab">Subordinate Staff</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link secretary-tab" id="secretary-tab" data-bs-toggle="tab" data-bs-target="#secretary-tab-content" type="button" role="tab">Secretary</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link finance-tab" id="finance-tab" data-bs-toggle="tab" data-bs-target="#finance-tab-content" type="button" role="tab">Finance</button>
+                                </li>
+                            </ul>
+                            
+                            <div class="tab-content" id="staffTabsContent">
+                                <div class="tab-pane fade show active" id="all-staff" role="tabpanel">
+                                    <div class="row mb-3">
+                                        <div class="col-md-4">
+                                            <select class="form-select" id="department-filter">
+                                                <option value="">All Departments</option>
+                                                <option>Teaching</option>
+                                                <option>Administration</option>
+                                                <option>Finance</option>
+                                                <option>Support</option>
+                                                <option>Maintenance</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <select class="form-select" id="status-filter">
+                                                <option value="">All Status</option>
+                                                <option>Active</option>
+                                                <option>On Leave</option>
+                                                <option>Suspended</option>
+                                                <option>Terminated</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type="text" class="form-control" placeholder="Search staff...">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="table-responsive">
+                                        <table class="data-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Staff ID</th>
+                                                    <th>Name</th>
+                                                    <th>Department</th>
+                                                    <th>Position</th>
+                                                    <th>Contact</th>
+                                                    <th>Status</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>TEA-001</td>
+                                                    <td>
+                                                       
+                                                        Mr. John Mwangi
+                                                    </td>
+                                                    <td>Teaching</td>
+                                                    <td>Mathematics Teacher</td>
+                                                    <td>john@school.com<br>0712345678</td>
+                                                    <td><span class="status-badge status-active">Active</span></td>
+                                                    <td>
+                                                        <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
+                                                        <button class="btn btn-sm btn-outline-secondary"><i class="fas fa-edit"></i></button>
+                                                        <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>ADM-002</td>
+                                                    <td>
+                                               
+                                                        Mrs. Wanjiru Kamau
+                                                    </td>
+                                                    <td>Administration</td>
+                                                    <td>School Secretary</td>
+                                                    <td>wanjiru@school.com<br>0723456789</td>
+                                                    <td><span class="status-badge status-active">Active</span></td>
+                                                    <td>
+                                                        <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
+                                                        <button class="btn btn-sm btn-outline-secondary"><i class="fas fa-edit"></i></button>
+                                                        <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>FIN-003</td>
+                                                    <td>
+                                                
+                                                        Mr. David Ochieng
+                                                    </td>
+                                                    <td>Finance</td>
+                                                    <td>Accountant</td>
+                                                    <td>david@school.com<br>0734567890</td>
+                                                    <td><span class="status-badge status-active">Active</span></td>
+                                                    <td>
+                                                        <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
+                                                        <button class="btn btn-sm btn-outline-secondary"><i class="fas fa-edit"></i></button>
+                                                        <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>SUP-004</td>
+                                                    <td>
+ 
+                                                        Mr. James Mutua
+                                                    </td>
+                                                    <td>Support</td>
+                                                    <td>IT Technician</td>
+                                                    <td>james@school.com<br>0745678901</td>
+                                                    <td><span class="status-badge status-pending">On Leave</span></td>
+                                                    <td>
+                                                        <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
+                                                        <button class="btn btn-sm btn-outline-secondary"><i class="fas fa-edit"></i></button>
+                                                        <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    
+                                    <nav class="mt-3">
+                                        <ul class="pagination justify-content-center">
+                                            <li class="page-item disabled">
+                                                <a class="page-link" href="#" tabindex="-1">Previous</a>
+                                            </li>
+                                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                            <li class="page-item">
+                                                <a class="page-link" href="#">Next</a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                                
+                                <div class="tab-pane fade" id="teachers-tab-content" role="tabpanel">
+                                    <div class="alert alert-info">
+                                        <i class="fas fa-info-circle"></i> Teaching staff management section. Here you can view, add, and manage all teaching staff members.
+                                    </div>
+                                    
+                                    <div class="table-responsive">
+                                        <table class="data-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Teacher ID</th>
+                                                    <th>Name</th>
+                                                    <th>Subjects</th>
+                                                    <th>Classes</th>
+                                                    <th>Contact</th>
+                                                    <th>Status</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>TEA-001</td>
+                                                    <td>Mr. John Mwangi</td>
+                                                    <td>Mathematics, Physics</td>
+                                                    <td>Form 2 East, Form 3 West</td>
+                                                    <td>john@school.com<br>0712345678</td>
+                                                    <td><span class="status-badge status-active">Active</span></td>
+                                                    <td>
+                                                        <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
+                                                        <button class="btn btn-sm btn-outline-secondary"><i class="fas fa-edit"></i></button>
+                                                        <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>TEA-005</td>
+                                                    <td>Mrs. Sarah Wambui</td>
+                                                    <td>English, Literature</td>
+                                                    <td>Form 1 East, Form 4 West</td>
+                                                    <td>sarah@school.com<br>0723456789</td>
+                                                    <td><span class="status-badge status-active">Active</span></td>
+                                                    <td>
+                                                        <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
+                                                        <button class="btn btn-sm btn-outline-secondary"><i class="fas fa-edit"></i></button>
+                                                        <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                
+                                <div class="tab-pane fade" id="subordinate-tab-content" role="tabpanel">
+                                    <div class="alert alert-warning">
+                                        <i class="fas fa-info-circle"></i> Subordinate staff management section. Includes support, maintenance, and other non-teaching staff.
+                                    </div>
+                                    
+                                    <div class="table-responsive">
+                                        <table class="data-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Staff ID</th>
+                                                    <th>Name</th>
+                                                    <th>Department</th>
+                                                    <th>Position</th>
+                                                    <th>Contact</th>
+                                                    <th>Status</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>SUP-004</td>
+                                                    <td>Mr. James Mutua</td>
+                                                    <td>Support</td>
+                                                    <td>IT Technician</td>
+                                                    <td>james@school.com<br>0745678901</td>
+                                                    <td><span class="status-badge status-pending">On Leave</span></td>
+                                                    <td>
+                                                        <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
+                                                        <button class="btn btn-sm btn-outline-secondary"><i class="fas fa-edit"></i></button>
+                                                        <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>MNT-006</td>
+                                                    <td>Mr. Peter Kamau</td>
+                                                    <td>Maintenance</td>
+                                                    <td>Groundsman</td>
+                                                    <td>peter@school.com<br>0756789012</td>
+                                                    <td><span class="status-badge status-active">Active</span></td>
+                                                    <td>
+                                                        <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
+                                                        <button class="btn btn-sm btn-outline-secondary"><i class="fas fa-edit"></i></button>
+                                                        <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                
+                                <div class="tab-pane fade" id="secretary-tab-content" role="tabpanel">
+                                    <div class="alert alert-primary">
+                                        <i class="fas fa-info-circle"></i> Secretary management section. Manage all administrative staff and their tasks.
+                                    </div>
+                                    
+                                    <div class="table-responsive">
+                                        <table class="data-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Staff ID</th>
+                                                    <th>Name</th>
+                                                    <th>Position</th>
+                                                    <th>Contact</th>
+                                                    <th>Tasks</th>
+                                                    <th>Status</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>ADM-002</td>
+                                                    <td>Mrs. Wanjiru Kamau</td>
+                                                    <td>School Secretary</td>
+                                                    <td>wanjiru@school.com<br>0723456789</td>
+                                                    <td>5 Active</td>
+                                                    <td><span class="status-badge status-active">Active</span></td>
+                                                    <td>
+                                                        <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
+                                                        <button class="btn btn-sm btn-outline-secondary"><i class="fas fa-edit"></i></button>
+                                                        <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                
+                                <div class="tab-pane fade" id="finance-tab-content" role="tabpanel">
+                                    <div class="alert alert-success">
+                                        <i class="fas fa-info-circle"></i> Finance department management section. View and manage all finance staff and their activities.
+                                    </div>
+                                    
+                                    <div class="table-responsive">
+                                        <table class="data-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Staff ID</th>
+                                                    <th>Name</th>
+                                                    <th>Position</th>
+                                                    <th>Contact</th>
+                                                    <th>Responsibilities</th>
+                                                    <th>Status</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>FIN-003</td>
+                                                    <td>Mr. David Ochieng</td>
+                                                    <td>Accountant</td>
+                                                    <td>david@school.com<br>0734567890</td>
+                                                    <td>Fee Collection, Payroll</td>
+                                                    <td><span class="status-badge status-active">Active</span></td>
+                                                    <td>
+                                                        <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
+                                                        <button class="btn btn-sm btn-outline-secondary"><i class="fas fa-edit"></i></button>
+                                                        <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>FIN-007</td>
+                                                    <td>Ms. Grace Atieno</td>
+                                                    <td>Accounts Assistant</td>
+                                                    <td>grace@school.com<br>0767890123</td>
+                                                    <td>Fee Records, Receipts</td>
+                                                    <td><span class="status-badge status-active">Active</span></td>
+                                                    <td>
+                                                        <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
+                                                        <button class="btn btn-sm btn-outline-secondary"><i class="fas fa-edit"></i></button>
+                                                        <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Teachers Content -->
+                <div id="teachers" class="tabcontent">
+                    <div class="col-12">
+                        <div class="form-container">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h3><i class="fas fa-chalkboard-teacher"></i> Teachers Management</h3>
+                                <div>
+                                    <button class="btn btn-sm btn-primary me-2" data-bs-toggle="modal" data-bs-target="#addTeacherModal">
+                                        <i class="fas fa-plus"></i> Add Teacher
+                                    </button>
+                                    <button class="btn btn-sm btn-success">
+                                        <i class="fas fa-file-export"></i> Export
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="row mb-3">
+                                <div class="col-md-3">
+                                    <select class="form-select" id="teacher-department">
+                                        <option value="">All Departments</option>
+                                        <option>Sciences</option>
+                                        <option>Humanities</option>
+                                        <option>Languages</option>
+                                        <option>Technical</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <select class="form-select" id="teacher-status">
+                                        <option value="">All Status</option>
+                                        <option>Active</option>
+                                        <option>On Leave</option>
+                                        <option>Probation</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <select class="form-select" id="teacher-class">
+                                        <option value="">All Classes</option>
+                                        <option>Form 1</option>
+                                        <option>Form 2</option>
+                                        <option>Form 3</option>
+                                        <option>Form 4</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="text" class="form-control" placeholder="Search teachers...">
+                                </div>
+                            </div>
+                            
+                            <div class="table-responsive">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Teacher ID</th>
+                                            <th>Name</th>
+                                            <th>Subjects</th>
+                                            <th>Classes</th>
+                                            <th>Contact</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>TEA-001</td>
+                                            <td>
+                                                <img src="https://via.placeholder.com/30" class="rounded-circle me-2" alt="Teacher">
+                                                Mr. John Mwangi
+                                            </td>
+                                            <td>Mathematics, Physics</td>
+                                            <td>Form 2 East, Form 3 West</td>
+                                            <td>john@school.edu<br>0712345678</td>
+                                            <td><span class="status-badge status-active">Active</span></td>
+                                            <td>
+                                                <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
+                                                <button class="btn btn-sm btn-outline-secondary"><i class="fas fa-edit"></i></button>
+                                                <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>TEA-005</td>
+                                            <td>
+                                                <img src="https://via.placeholder.com/30" class="rounded-circle me-2" alt="Teacher">
+                                                Mrs. Sarah Wambui
+                                            </td>
+                                            <td>English, Literature</td>
+                                            <td>Form 1 East, Form 4 West</td>
+                                            <td>sarah@school.edu<br>0723456789</td>
+                                            <td><span class="status-badge status-active">Active</span></td>
+                                            <td>
+                                                <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
+                                                <button class="btn btn-sm btn-outline-secondary"><i class="fas fa-edit"></i></button>
+                                                <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <div class="row mt-4">
+                                <div class="col-md-6">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h5>Teacher Workload</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="chart-container">
+                                                <canvas id="teacherWorkloadChart"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h5>Teacher Performance</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="chart-container">
+                                                <canvas id="teacherPerformanceChart"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Subordinate Staff Content -->
+                <div id="subordinate-staff" class="tabcontent">
+                    <div class="col-12">
+                        <div class="form-container">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h3><i class="fas fa-user-shield"></i> Subordinate Staff Management</h3>
+                                <div>
+                                    <button class="btn btn-sm btn-primary me-2" data-bs-toggle="modal" data-bs-target="#addStaffModal">
+                                        <i class="fas fa-plus"></i> Add Staff
+                                    </button>
+                                    <button class="btn btn-sm btn-success">
+                                        <i class="fas fa-file-export"></i> Export
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <select class="form-select" id="staff-department">
+                                        <option value="">All Departments</option>
+                                        <option>Administration</option>
+                                        <option>Maintenance</option>
+                                        <option>Security</option>
+                                        <option>Support</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <select class="form-select" id="staff-status">
+                                        <option value="">All Status</option>
+                                        <option>Active</option>
+                                        <option>On Leave</option>
+                                        <option>Probation</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" placeholder="Search staff...">
+                                </div>
+                            </div>
+                            
+                            <div class="table-responsive">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Staff ID</th>
+                                            <th>Name</th>
+                                            <th>Department</th>
+                                            <th>Position</th>
+                                            <th>Contact</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>SUP-004</td>
+                                            <td>
+                                                 
+                                                Mr. James Mutua
+                                            </td>
+                                            <td>Support</td>
+                                            <td>IT Technician</td>
+                                            <td>james@school.com<br>0745678901</td>
+                                            <td><span class="status-badge status-pending">On Leave</span></td>
+                                            <td>
+                                                <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
+                                                <button class="btn btn-sm btn-outline-secondary"><i class="fas fa-edit"></i></button>
+                                                <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>MNT-006</td>
+                                            <td>
+                                                 
+                                                Mr. Peter Kamau
+                                            </td>
+                                            <td>Maintenance</td>
+                                            <td>Groundsman</td>
+                                            <td>peter@school.com<br>0756789012</td>
+                                            <td><span class="status-badge status-active">Active</span></td>
+                                            <td>
+                                                <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
+                                                <button class="btn btn-sm btn-outline-secondary"><i class="fas fa-edit"></i></button>
+                                                <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <div class="row mt-4">
+                                <div class="col-md-12">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h5>Staff Attendance</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="chart-container">
+                                                <canvas id="staffAttendanceChart"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Secretary Content -->
+                <div id="secretary" class="tabcontent">
+                    <div class="col-12">
+                        <div class="form-container">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h3><i class="fas fa-user-tie"></i> Secretary Management</h3>
+                                <div>
+                                    <button class="btn btn-sm btn-primary me-2" data-bs-toggle="modal" data-bs-target="#addSecretaryModal">
+                                        <i class="fas fa-plus"></i> Add Secretary
+                                    </button>
+                                    <button class="btn btn-sm btn-success">
+                                        <i class="fas fa-tasks"></i> View Tasks
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <select class="form-select" id="secretary-department">
+                                        <option value="">All Departments</option>
+                                        <option>Administration</option>
+                                        <option>Reception</option>
+                                        <option>Records</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <select class="form-select" id="secretary-status">
+                                        <option value="">All Status</option>
+                                        <option>Active</option>
+                                        <option>On Leave</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" placeholder="Search secretaries...">
+                                </div>
+                            </div>
+                            
+                            <div class="table-responsive">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Staff ID</th>
+                                            <th>Name</th>
+                                            <th>Department</th>
+                                            <th>Position</th>
+                                            <th>Contact</th>
+                                            <th>Tasks</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>ADM-002</td>
+                                            <td>
+                                                <img src="https://via.placeholder.com/30" class="rounded-circle me-2" alt="Secretary">
+                                                Mrs. Wanjiru Kamau
+                                            </td>
+                                            <td>Administration</td>
+                                            <td>School Secretary</td>
+                                            <td>wanjiru@school.com<br>0723456789</td>
+                                            <td>5 Active</td>
+                                            <td><span class="status-badge status-active">Active</span></td>
+                                            <td>
+                                                <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
+                                                <button class="btn btn-sm btn-outline-secondary"><i class="fas fa-edit"></i></button>
+                                                <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>ADM-008</td>
+                                            <td>
+                                                <img src="https://via.placeholder.com/30" class="rounded-circle me-2" alt="Secretary">
+                                                Ms. Grace Muthoni
+                                            </td>
+                                            <td>Reception</td>
+                                            <td>Front Desk</td>
+                                            <td>grace@school.com<br>0778901234</td>
+                                            <td>3 Active</td>
+                                            <td><span class="status-badge status-active">Active</span></td>
+                                            <td>
+                                                <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
+                                                <button class="btn btn-sm btn-outline-secondary"><i class="fas fa-edit"></i></button>
+                                                <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <div class="row mt-4">
+                                <div class="col-md-6">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h5>Secretary Tasks</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="chart-container">
+                                                <canvas id="secretaryTasksChart"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h5>Document Processing</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="chart-container">
+                                                <canvas id="documentProcessingChart"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Finance Content -->
+                <div id="finance" class="tabcontent">
+                    <div class="col-12">
+                        <div class="form-container">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h3><i class="fas fa-money-bill-wave"></i> Finance Department</h3>
+                                <div>
+                                    <button class="btn btn-sm btn-primary me-2" data-bs-toggle="modal" data-bs-target="#addFinanceStaffModal">
+                                        <i class="fas fa-plus"></i> Add Staff
+                                    </button>
+                                    <button class="btn btn-sm btn-success">
+                                        <i class="fas fa-file-invoice-dollar"></i> View Reports
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <select class="form-select" id="finance-position">
+                                        <option value="">All Positions</option>
+                                        <option>Accountant</option>
+                                        <option>Accounts Assistant</option>
+                                        <option>Bursar</option>
+                                        <option>Clerk</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <select class="form-select" id="finance-status">
+                                        <option value="">All Status</option>
+                                        <option>Active</option>
+                                        <option>On Leave</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" placeholder="Search finance staff...">
+                                </div>
+                            </div>
+                            
+                            <div class="table-responsive">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Staff ID</th>
+                                            <th>Name</th>
+                                            <th>Position</th>
+                                            <th>Responsibilities</th>
+                                            <th>Contact</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>FIN-003</td>
+                                            <td>
+                                                <img src="https://via.placeholder.com/30" class="rounded-circle me-2" alt="Finance">
+                                                Mr. David Ochieng
+                                            </td>
+                                            <td>Accountant</td>
+                                            <td>Fee Collection, Payroll</td>
+                                            <td>david@school.com<br>0734567890</td>
+                                            <td><span class="status-badge status-active">Active</span></td>
+                                            <td>
+                                                <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
+                                                <button class="btn btn-sm btn-outline-secondary"><i class="fas fa-edit"></i></button>
+                                                <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>FIN-007</td>
+                                            <td>
+                                                <img src="https://via.placeholder.com/30" class="rounded-circle me-2" alt="Finance">
+                                                Ms. Grace Atieno
+                                            </td>
+                                            <td>Accounts Assistant</td>
+                                            <td>Fee Records, Receipts</td>
+                                            <td>grace@school.com<br>0767890123</td>
+                                            <td><span class="status-badge status-active">Active</span></td>
+                                            <td>
+                                                <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
+                                                <button class="btn btn-sm btn-outline-secondary"><i class="fas fa-edit"></i></button>
+                                                <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <div class="row mt-4">
+                                <div class="col-md-6">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h5>Financial Transactions</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="chart-container">
+                                                <canvas id="financialTransactionsChart"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h5>Fee Collection</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="chart-container">
+                                                <canvas id="feeCollectionChart"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Students Content -->
+                <div id="students" class="tabcontent">
+                    <div class="col-12">
+                        <div class="form-container">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h3><i class="fas fa-users"></i> Students Management</h3>
+                                <div>
+                                   <!-- Add Student Button -->
+<button class="btn btn-sm btn-primary me-2" id="openStudentForm" data-bs-toggle="modal" data-bs-target="#studentModal">
+    <i class="fas fa-plus"></i> Add Student
+</button>
+
+<!-- Student Registration Modal -->
+<div class="modal fade" id="studentModal" tabindex="-1" aria-labelledby="studentModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="studentModalLabel">
+                    <i class="fas fa-user-graduate"></i> New Student Registration
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <!-- Personal Information -->
+                    <div class="form-section">
+                        <h5 class="form-section-title">Personal Information</h5>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label class="form-label">First Name</label>
+                                <input type="text" class="form-control" placeholder="Enter first name">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Middle Name</label>
+                                <input type="text" class="form-control" placeholder="Enter middle name">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Last Name</label>
+                                <input type="text" class="form-control" placeholder="Enter last name">
+                            </div>
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="col-md-3">
+                                <label class="form-label">Date of Birth</label>
+                                <input type="date" class="form-control">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Gender</label>
+                                <select class="form-control">
+                                    <option>Select gender</option>
+                                    <option>Male</option>
+                                    <option>Female</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">County</label>
+                                <input type="text" class="form-control" placeholder="Enter county">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Religion</label>
+                                <input type="text" class="form-control" placeholder="Enter religion">
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <!-- Contact Information -->
+                    <div class="form-section">
+                        <h5 class="form-section-title">Contact Information</h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="form-label">Address</label>
+                                <input type="text" class="form-control" placeholder="Enter address">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">City</label>
+                                <input type="text" class="form-control" placeholder="Enter city">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Postal Code</label>
+                                <input type="text" class="form-control" placeholder="Enter postal code">
+                            </div>
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="col-md-4">
+                                <label class="form-label">Parent/Guardian Name</label>
+                                <input type="text" class="form-control" placeholder="Enter name">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Parent/Guardian Phone</label>
+                                <input type="tel" class="form-control" placeholder="Enter phone number">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Parent/Guardian Email</label>
+                                <input type="email" class="form-control" placeholder="Enter email">
+                            </div>
+                            <div class="col-md-4 mt-3">
+                                <label class="form-label">Village</label>
+                                <input type="text" class="form-control" required>
+                            </div>
+                            <div class="col-md-6 mt-3">
+                                <label class="form-label">Orphan Status</label>
+                                <select class="form-select" required>
+                                    <option value="">-- Select Option --</option>
+                                    <option>Full Orphan</option>
+                                    <option>Single Parent - Mother Alive</option>
+                                    <option>Single Parent - Father Alive</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mt-3">
+                                <label class="form-label">Chief Name</label>
+                                <input type="text" class="form-control" required>
+                            </div>
+                            <div class="col-md-6 mt-3">
+                                <label class="form-label">Chief Contact</label>
+                                <input type="text" class="form-control" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <!-- Academic Information -->
+                    <div class="form-section">
+                        <h5 class="form-section-title">Academic Information</h5>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label class="form-label">Admission Number</label>
+                                <input type="text" class="form-control" placeholder="Auto-generated" disabled>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Admission Date</label>
+                                <input type="date" class="form-control">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Class</label>
+                                <select class="form-control">
+                                    <option>Select class</option>
+                                    <option>Form 1</option>
+                                    <option>Form 2</option>
+                                    <option>Form 3</option>
+                                    <option>Form 4</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="col-md-4">
+                                <label class="form-label">Stream</label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Previous School</label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Previous Grades</label>
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <!-- Medical Information -->
+                    <div class="form-section">
+                        <h5 class="form-section-title">Medical Information</h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="form-label">Medical Conditions</label>
+                                <textarea class="form-control" rows="2"></textarea>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Allergies</label>
+                                <textarea class="form-control" rows="2"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Doctor's Name</label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Doctor's Phone</label>
+                                <input type="tel" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <!-- Documents Upload -->
+                    <div class="form-section">
+                        <h5 class="form-section-title">Documents Upload</h5>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label class="form-label">Birth Certificate</label>
+                                <input type="file" class="form-control">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Passport Photo</label>
+                                <input type="file" class="form-control">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Previous School Report</label>
+                                <input type="file" class="form-control">
+                            </div>
+                            <div class="col-md-3 mt-3">
+                                <label class="form-label">Parent ID</label>
+                                <input type="file" class="form-control" required>
+                            </div>
+                            <div class="col-md-3 mt-3">
+                                <label class="form-label">Recommendation Letter</label>
+                                <input type="file" class="form-control" required>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary">Save Student</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+                                    <button class="btn btn-sm btn-success" id="import-students-btn">
+                                        <i class="fas fa-file-import"></i> Import
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <!-- Rest of the students content remains the same as in the original -->
+                            <!-- ... -->
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Academics Content -->
+                <div id="academics" class="tabcontent">
+                    <div class="col-12">
+                        <div class="form-container">
+                            <!-- Rest of the academics content remains the same as in the original -->
+                            <!-- ... -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Reports Content -->
+                <div id="reports" class="tabcontent">
+                    <div class="col-12">
+                        <div class="form-container">
+                            <!-- Rest of the reports content remains the same as in the original -->
+                            <!-- ... -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Communication Content -->
+                <div id="communication" class="tabcontent">
+                    <div class="col-12">
+                        <div class="form-container">
+                            <!-- Rest of the communication content remains the same as in the original -->
+                            <!-- ... -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Settings Content -->
+                <div id="settings" class="tabcontent">
+                    <div class="col-12">
+                        <div class="form-container">
+                            <!-- Rest of the settings content remains the same as in the original -->
+                            <!-- ... -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <footer class="content-footer">
+                <p>&copy;SLA Admin Portal © 2025 | Dev: Edward Mugao<span class="text-muted">v2.1.0</span></p>
+            </footer>
+        </div>
+    </div>
+
+    <!-- Add Student -->
+
+<!-- Student Registration Section -->
+                <div id="students" class="tabcontent">
+                    <div class="col-12">
+                        <div class="form-container">
+                            <h3><i class="fas fa-user-graduate"></i> New Student Registration</h3>
+                            <hr>
+                            
+                            <div class="form-section">
+                                <h5 class="form-section-title">Personal Information</h5>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="form-label">First Name</label>
+                                            <input type="text" class="form-control" placeholder="Enter first name">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="form-label">Middle Name</label>
+                                            <input type="text" class="form-control" placeholder="Enter middle name">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="form-label">Last Name</label>
+                                            <input type="text" class="form-control" placeholder="Enter last name">
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label class="form-label">Date of Birth</label>
+                                            <input type="date" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label class="form-label">Gender</label>
+                                            <select class="form-control">
+                                                <option>Select gender</option>
+                                                <option>Male</option>
+                                                <option>Female</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label class="form-label">County</label>
+                                            <input type="text" class="form-control" placeholder="Enter county">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label class="form-label">Religion</label>
+                                            <input type="text" class="form-control" placeholder="Enter religion">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-section">
+                                <h5 class="form-section-title">Contact Information</h5>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Address</label>
+                                            <input type="text" class="form-control" placeholder="Enter address">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label class="form-label">City</label>
+                                            <input type="text" class="form-control" placeholder="Enter city">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label class="form-label">Postal Code</label>
+                                            <input type="text" class="form-control" placeholder="Enter postal code">
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="form-label">Parent/Guardian Name</label>
+                                            <input type="text" class="form-control" placeholder="Enter name">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="form-label">Parent/Guardian Phone</label>
+                                            <input type="tel" class="form-control" placeholder="Enter phone number">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="form-label">Parent/Guardian Email</label>
+                                            <input type="email" class="form-control" placeholder="Enter email">
+                                        </div>
+                                    </div>
+                                      <div class="col-md-4">
+                        <label class="form-label">Village</label>
+                        <input type="text" name="village" class="form-control" required>
+                    </div>
+                           <div class="col-md-6">
+                        <label class="form-label">Orphan Status</label>
+                        <select name="orphan_status" class="form-select" required>
+                            <option value="">-- Select Option --</option>
+                            <option>Full Orphan</option>
+                            <option>Single Parent - Mother Alive</option>
+                            <option>Single Parent - Father Alive</option>
+                        </select>
+                    </div>
+                                        <div class="col-md-6">
+                        <label class="form-label">Chief Name</label>
+                        <input type="text" name="chief_name" class="form-control" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Chief Contact</label>
+                        <input type="text" name="chief_contact" class="form-control" required>
+                    </div>
+
+
+                                </div>
+                            </div>
+                            
+                            <div class="form-section">
+                                <h5 class="form-section-title">Academic Information</h5>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="form-label">Admission Number</label>
+                                            <input type="text" class="form-control" placeholder="Auto-generated" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="form-label">Admission Date</label>
+                                            <input type="date" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="form-label">Class</label>
+                                            <select class="form-control">
+                                                <option>Select class</option>
+                                                <option>Form 1</option>
+                                                <option>Form 2</option>
+                                                <option>Form 3</option>
+                                                <option>Form 4</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="form-label">Stream</label>
+                                            <input type="text" class="form-control" placeholder="Enter stream">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="form-label">Previous School</label>
+                                            <input type="text" class="form-control" placeholder="Enter previous school">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="form-label">Previous Grades</label>
+                                            <input type="text" class="form-control" placeholder="Enter previous grades">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-section">
+                                <h5 class="form-section-title">Medical Information</h5>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Medical Conditions</label>
+                                            <textarea class="form-control" rows="2" placeholder="List any medical conditions"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Allergies</label>
+                                            <textarea class="form-control" rows="2" placeholder="List any allergies"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Doctor's Name</label>
+                                            <input type="text" class="form-control" placeholder="Enter doctor's name">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Doctor's Phone</label>
+                                            <input type="tel" class="form-control" placeholder="Enter doctor's phone">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-section">
+                                <h5 class="form-section-title">Documents Upload</h5>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="form-label">Birth Certificate</label>
+                                            <input type="file" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="form-label">Passport Photo</label>
+                                            <input type="file" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="form-label">Previous School Report</label>
+                                            <input type="file" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                        <label class="form-label">Parent ID</label>
+                        <input type="file" name="parent_id" class="form-control" required>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">Recommendation Letter</label>
+                        <input type="file" name="recommendation" class="form-control" required>
+                    </div>
+
+                                </div>
+                            </div>
+                            
+                            <div class="text-end mt-4">
+                                <button class="btn btn-secondary me-2">Cancel</button>
+                                <button class="btn btn-primary">Save Student</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+    <!-- Add Staff Modal -->
+    <div class="modal fade" id="addStaffModal" tabindex="-1" aria-labelledby="addStaffModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addStaffModalLabel">Add New Staff Member</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label">First Name</label>
+                                <input type="text" class="form-control" placeholder="Enter first name">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Last Name</label>
+                                <input type="text" class="form-control" placeholder="Enter last name">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label">ID Number</label>
+                                <input type="text" class="form-control" placeholder="Enter national ID">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Date of Birth</label>
+                                <input type="date" class="form-control">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Gender</label>
+                                <select class="form-select">
+                                    <option>Male</option>
+                                    <option>Female</option>
+                                     
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Phone Number</label>
+                                <input type="tel" class="form-control" placeholder="Enter phone number">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Email Address</label>
+                            <input type="email" class="form-control" placeholder="Enter email address">
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Department</label>
+                                <select class="form-select">
+                                    <option>Teaching</option>
+                                    <option>Administration</option>
+                                    <option>Finance</option>
+                                    <option>Support</option>
+                                    <option>Maintenance</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Position</label>
+                                <input type="text" class="form-control" placeholder="Enter position">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Employment Date</label>
+                                <input type="date" class="form-control">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Status</label>
+                                <select class="form-select">
+                                    <option>Active</option>
+                                    <option>On Leave</option>
+                                    <option>Probation</option>
+                                    <option>Suspended</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Profile Photo</label>
+                            <input type="file" class="form-control">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary">Save Staff</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Teacher Modal -->
+    <div class="modal fade" id="addTeacherModal" tabindex="-1" aria-labelledby="addTeacherModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addTeacherModalLabel">Add New Teacher</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label">First Name</label>
+                                <input type="text" class="form-control" placeholder="Enter first name">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Last Name</label>
+                                <input type="text" class="form-control" placeholder="Enter last name">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label">TSC Number</label>
+                                <input type="text" class="form-control" placeholder="Enter TSC number">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">ID Number</label>
+                                <input type="text" class="form-control" placeholder="Enter national ID">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Subjects</label>
+                                <select class="form-select" multiple>
+                                    <option>Mathematics</option>
+                                    <option>English</option>
+                                    <option>Kiswahili</option>
+                                    <option>Biology</option>
+                                    <option>Chemistry</option>
+                                    <option>Physics</option>
+                                    <option>History</option>
+                                    <option>Geography</option>
+                                    <option>CRE</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Classes</label>
+                                <select class="form-select" multiple>
+                                    <option>Form 1 East</option>
+                                    <option>Form 1 West</option>
+                                    <option>Form 2 East</option>
+                                    <option>Form 2 West</option>
+                                    <option>Form 3 East</option>
+                                    <option>Form 3 West</option>
+                                    <option>Form 4 East</option>
+                                    <option>Form 4 West</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- Rest of teacher-specific fields -->
+                        <div class="mb-3">
+                            <label class="form-label">Profile Photo</label>
+                            <input type="file" class="form-control">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary">Save Teacher</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Secretary Modal -->
+    <div class="modal fade" id="addSecretaryModal" tabindex="-1" aria-labelledby="addSecretaryModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addSecretaryModalLabel">Add New Secretary</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <!-- Secretary-specific fields -->
+                        <div class="mb-3">
+                            <label class="form-label">Profile Photo</label>
+                            <input type="file" class="form-control">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary">Save Secretary</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Finance Staff Modal -->
+    <div class="modal fade" id="addFinanceStaffModal" tabindex="-1" aria-labelledby="addFinanceStaffModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addFinanceStaffModalLabel">Add Finance Staff</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <!-- Finance staff-specific fields -->
+                        <div class="mb-3">
+                            <label class="form-label">Profile Photo</label>
+                            <input type="file" class="form-control">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary">Save Staff</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Custom JS -->
+    <script>
+        // Toggle sidebar on mobile
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            document.getElementById('sidebar').classList.toggle('active');
+        });
+
+        // Tab functionality
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            
+            // Hide all tab content
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            
+            // Remove active class from all tab buttons
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            
+            // Show the current tab and add active class to the button
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+            
+            // Update page title
+            document.getElementById('page-title').textContent = evt.currentTarget.textContent.trim();
+        }
+
+        // Initialize dashboard charts
+        document.addEventListener('DOMContentLoaded', function() {
+            // Performance Chart
+            const performanceCtx = document.getElementById('performanceChart').getContext('2d');
+            const performanceChart = new Chart(performanceCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Term 1', 'Term 2', 'Term 3'],
+                    datasets: [{
+                        label: 'Academic Performance',
+                        data: [65, 72, 78],
+                        backgroundColor: 'rgba(155, 89, 182, 0.7)',
+                        borderColor: 'rgba(155, 89, 182, 1)',
+                        borderWidth: 1
+                    }, {
+                        label: 'Staff Performance',
+                        data: [70, 75, 82],
+                        backgroundColor: 'rgba(52, 152, 219, 0.7)',
+                        borderColor: 'rgba(52, 152, 219, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            min: 50,
+                            max: 100
+                        }
+                    }
+                }
+            });
+
+            // Teacher Workload Chart
+            const teacherWorkloadCtx = document.getElementById('teacherWorkloadChart').getContext('2d');
+            const teacherWorkloadChart = new Chart(teacherWorkloadCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Light Workload', 'Moderate Workload', 'Heavy Workload'],
+                    datasets: [{
+                        data: [15, 25, 8],
+                        backgroundColor: [
+                            'rgba(46, 204, 113, 0.7)',
+                            'rgba(241, 196, 15, 0.7)',
+                            'rgba(231, 76, 60, 0.7)'
+                        ],
+                        borderColor: [
+                            'rgba(46, 204, 113, 1)',
+                            'rgba(241, 196, 15, 1)',
+                            'rgba(231, 76, 60, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+
+            // Teacher Performance Chart
+            const teacherPerformanceCtx = document.getElementById('teacherPerformanceChart').getContext('2d');
+            const teacherPerformanceChart = new Chart(teacherPerformanceCtx, {
+                type: 'radar',
+                data: {
+                    labels: ['Lesson Preparation', 'Class Management', 'Student Engagement', 'Assessment Quality', 'Professionalism'],
+                    datasets: [{
+                        label: 'Average Teacher Performance',
+                        data: [85, 78, 82, 80, 88],
+                        backgroundColor: 'rgba(52, 152, 219, 0.2)',
+                        borderColor: 'rgba(52, 152, 219, 1)',
+                        borderWidth: 2,
+                        pointBackgroundColor: 'rgba(52, 152, 219, 1)'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: {
+                                display: true
+                            },
+                            suggestedMin: 50,
+                            suggestedMax: 100
+                        }
+                    }
+                }
+            });
+
+            // Staff Attendance Chart
+            const staffAttendanceCtx = document.getElementById('staffAttendanceChart').getContext('2d');
+            const staffAttendanceChart = new Chart(staffAttendanceCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+                    datasets: [{
+                        label: 'Teaching Staff',
+                        data: [95, 93, 97, 96, 94, 95, 96],
+                        backgroundColor: 'rgba(52, 152, 219, 0.2)',
+                        borderColor: 'rgba(52, 152, 219, 1)',
+                        borderWidth: 2,
+                        fill: true
+                    }, {
+                        label: 'Subordinate Staff',
+                        data: [90, 88, 92, 91, 89, 90, 91],
+                        backgroundColor: 'rgba(230, 126, 34, 0.2)',
+                        borderColor: 'rgba(230, 126, 34, 1)',
+                        borderWidth: 2,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            min: 80,
+                            max: 100
+                        }
+                    }
+                }
+            });
+
+            // Secretary Tasks Chart
+            const secretaryTasksCtx = document.getElementById('secretaryTasksChart').getContext('2d');
+            const secretaryTasksChart = new Chart(secretaryTasksCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Pending', 'In Progress', 'Completed', 'Overdue'],
+                    datasets: [{
+                        label: 'Tasks',
+                        data: [12, 8, 25, 3],
+                        backgroundColor: [
+                            'rgba(255, 193, 7, 0.7)',
+                            'rgba(13, 110, 253, 0.7)',
+                            'rgba(25, 135, 84, 0.7)',
+                            'rgba(220, 53, 69, 0.7)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 193, 7, 1)',
+                            'rgba(13, 110, 253, 1)',
+                            'rgba(25, 135, 84, 1)',
+                            'rgba(220, 53, 69, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            // Document Processing Chart
+            const documentProcessingCtx = document.getElementById('documentProcessingChart').getContext('2d');
+            const documentProcessingChart = new Chart(documentProcessingCtx, {
+                type: 'pie',
+                data: {
+                    labels: ['Processed', 'Pending', 'Rejected'],
+                    datasets: [{
+                        data: [85, 10, 5],
+                        backgroundColor: [
+                            'rgba(25, 135, 84, 0.7)',
+                            'rgba(255, 193, 7, 0.7)',
+                            'rgba(220, 53, 69, 0.7)'
+                        ],
+                        borderColor: [
+                            'rgba(25, 135, 84, 1)',
+                            'rgba(255, 193, 7, 1)',
+                            'rgba(220, 53, 69, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+
+            // Financial Transactions Chart
+            const financialTransactionsCtx = document.getElementById('financialTransactionsChart').getContext('2d');
+            const financialTransactionsChart = new Chart(financialTransactionsCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+                    datasets: [{
+                        label: 'Income',
+                        data: [1200000, 1500000, 1300000, 1600000, 1400000, 1700000, 1500000],
+                        backgroundColor: 'rgba(25, 135, 84, 0.2)',
+                        borderColor: 'rgba(25, 135, 84, 1)',
+                        borderWidth: 2,
+                        fill: true
+                    }, {
+                        label: 'Expenses',
+                        data: [800000, 850000, 900000, 950000, 1000000, 1050000, 1100000],
+                        backgroundColor: 'rgba(220, 53, 69, 0.2)',
+                        borderColor: 'rgba(220, 53, 69, 1)',
+                        borderWidth: 2,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return 'KES ' + (value / 1000000) + 'M';
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.dataset.label + ': KES ' + context.raw.toLocaleString();
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Fee Collection Chart
+            const feeCollectionCtx = document.getElementById('feeCollectionChart').getContext('2d');
+            const feeCollectionChart = new Chart(feeCollectionCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Form 1', 'Form 2', 'Form 3', 'Form 4'],
+                    datasets: [{
+                        label: 'Collected',
+                        data: [85, 92, 78, 88],
+                        backgroundColor: 'rgba(25, 135, 84, 0.7)',
+                        borderColor: 'rgba(25, 135, 84, 1)',
+                        borderWidth: 1
+                    }, {
+                        label: 'Pending',
+                        data: [15, 8, 22, 12],
+                        backgroundColor: 'rgba(255, 193, 7, 0.7)',
+                        borderColor: 'rgba(255, 193, 7, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
